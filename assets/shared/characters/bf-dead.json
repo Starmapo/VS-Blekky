@@ -1,41 +1,41 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				37,
-				11
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				136,
+				-1
+			],
 			"anim": "firstDeath",
-			"indices": [],
-			"name": "BF dies"
+			"fps": 24,
+			"name": "GameOverStart",
+			"indices": []
 		},
 		{
-			"offsets": [
-				37,
-				5
-			],
 			"loop": true,
-			"fps": 24,
+			"offsets": [
+				136,
+				-1
+			],
 			"anim": "deathLoop",
-			"indices": [],
-			"name": "BF Dead Loop"
+			"fps": 24,
+			"name": "GameOverLoop",
+			"indices": []
 		},
 		{
-			"offsets": [
-				37,
-				69
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [
+				136,
+				-1
+			],
 			"anim": "deathConfirm",
-			"indices": [],
-			"name": "BF Dead confirm"
+			"fps": 24,
+			"name": "GameOverRetry",
+			"indices": []
 		}
 	],
 	"no_antialiasing": false,
-	"image": "characters/BOYFRIEND_DEAD",
+	"image": "characters/PPLUS_BF_GAMEOVER",
 	"position": [
 		0,
 		350
@@ -47,9 +47,10 @@
 		176,
 		209
 	],
+	"arrowsName": null,
 	"camera_position": [
-		0,
-		0
+		100,
+		-40
 	],
 	"sing_duration": 4,
 	"scale": 1

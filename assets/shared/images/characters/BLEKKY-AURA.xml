@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="BLEKKY-AURA.png">
+	<!-- Created with Adobe Animate version 20.0.0.17400 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Aura0000" x="10" y="10" width="622" height="778" frameX="-17" frameY="-7" frameWidth="655" frameHeight="787"/>
+	<SubTexture name="Aura0001" x="10" y="10" width="622" height="778" frameX="-17" frameY="-7" frameWidth="655" frameHeight="787"/>
+	<SubTexture name="Aura0002" x="642" y="10" width="643" height="785" frameX="-6" frameY="0" frameWidth="655" frameHeight="787"/>
+	<SubTexture name="Aura0003" x="642" y="10" width="643" height="785" frameX="-6" frameY="0" frameWidth="655" frameHeight="787"/>
+	<SubTexture name="Aura0004" x="1295" y="10" width="655" height="747" frameX="0" frameY="-40" frameWidth="655" frameHeight="787"/>
+	<SubTexture name="Aura0005" x="1295" y="10" width="655" height="747" frameX="0" frameY="-40" frameWidth="655" frameHeight="787"/>
+	<SubTexture name="AuraAppear0000" x="1960" y="10" width="620" height="106" frameX="-25" frameY="-745" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0001" x="2590" y="10" width="506" height="431" frameX="-82" frameY="-411" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0002" x="3106" y="10" width="604" height="849" frameX="-33" frameY="0" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0003" x="3106" y="10" width="604" height="849" frameX="-33" frameY="0" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0004" x="10" y="869" width="670" height="704" frameX="0" frameY="-145" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0005" x="10" y="869" width="670" height="704" frameX="0" frameY="-145" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0006" x="690" y="869" width="655" height="747" frameX="-7" frameY="-104" frameWidth="670" frameHeight="851"/>
+	<SubTexture name="AuraAppear0007" x="690" y="869" width="655" height="747" frameX="-7" frameY="-104" frameWidth="670" frameHeight="851"/>
+</TextureAtlas>

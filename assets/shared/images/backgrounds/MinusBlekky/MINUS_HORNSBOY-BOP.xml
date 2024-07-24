@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="MINUS_HORNSBOY-BOP.png">
+	<!-- Created with Adobe Animate version 20.0.0.17400 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="HornsBoyBop0000" x="10" y="10" width="592" height="480" frameX="-4" frameY="-3" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0001" x="10" y="10" width="592" height="480" frameX="-4" frameY="-3" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0002" x="612" y="10" width="595" height="484" frameX="0" frameY="0" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0003" x="612" y="10" width="595" height="484" frameX="0" frameY="0" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0004" x="1217" y="10" width="586" height="472" frameX="-11" frameY="-2" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0005" x="1217" y="10" width="586" height="472" frameX="-11" frameY="-2" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0006" x="10" y="504" width="574" height="456" frameX="-32" frameY="-4" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0007" x="10" y="504" width="574" height="456" frameX="-32" frameY="-4" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0008" x="594" y="504" width="571" height="453" frameX="-37" frameY="-5" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0009" x="594" y="504" width="571" height="453" frameX="-37" frameY="-5" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0010" x="594" y="504" width="571" height="453" frameX="-37" frameY="-5" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0011" x="594" y="504" width="571" height="453" frameX="-37" frameY="-5" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0012" x="594" y="504" width="571" height="453" frameX="-37" frameY="-5" frameWidth="608" frameHeight="484"/>
+	<SubTexture name="HornsBoyBop0013" x="594" y="504" width="571" height="453" frameX="-37" frameY="-5" frameWidth="608" frameHeight="484"/>
+</TextureAtlas>

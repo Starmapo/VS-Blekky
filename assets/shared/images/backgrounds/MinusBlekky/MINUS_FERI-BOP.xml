@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="MINUS_FERI-BOP.png">
+	<!-- Created with Adobe Animate version 20.0.0.17400 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="FeriBop0000" x="10" y="10" width="454" height="456" frameX="-3" frameY="-6" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0001" x="10" y="10" width="454" height="456" frameX="-3" frameY="-6" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0002" x="474" y="10" width="456" height="462" frameX="0" frameY="0" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0003" x="474" y="10" width="456" height="462" frameX="0" frameY="0" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0004" x="940" y="10" width="443" height="448" frameX="-13" frameY="-14" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0005" x="940" y="10" width="443" height="448" frameX="-13" frameY="-14" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0006" x="1393" y="10" width="437" height="439" frameX="-18" frameY="-23" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0007" x="1393" y="10" width="437" height="439" frameX="-18" frameY="-23" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0008" x="10" y="482" width="431" height="431" frameX="-24" frameY="-31" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0009" x="10" y="482" width="431" height="431" frameX="-24" frameY="-31" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0010" x="10" y="482" width="431" height="431" frameX="-24" frameY="-31" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0011" x="10" y="482" width="431" height="431" frameX="-24" frameY="-31" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0012" x="10" y="482" width="431" height="431" frameX="-24" frameY="-31" frameWidth="457" frameHeight="462"/>
+	<SubTexture name="FeriBop0013" x="10" y="482" width="431" height="431" frameX="-24" frameY="-31" frameWidth="457" frameHeight="462"/>
+</TextureAtlas>

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="MINUS_SKY-BOP.png">
+	<!-- Created with Adobe Animate version 20.0.0.17400 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="SkyBop0000" x="10" y="10" width="659" height="557" frameX="-6" frameY="-4" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0001" x="10" y="10" width="659" height="557" frameX="-6" frameY="-4" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0002" x="679" y="10" width="661" height="559" frameX="-8" frameY="0" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0003" x="679" y="10" width="661" height="559" frameX="-8" frameY="0" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0004" x="1350" y="10" width="643" height="537" frameX="-5" frameY="-3" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0005" x="1350" y="10" width="643" height="537" frameX="-5" frameY="-3" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0006" x="10" y="579" width="631" height="522" frameX="-1" frameY="-7" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0007" x="10" y="579" width="631" height="522" frameX="-1" frameY="-7" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0008" x="651" y="579" width="627" height="517" frameX="0" frameY="-9" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0009" x="651" y="579" width="627" height="517" frameX="0" frameY="-9" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0010" x="651" y="579" width="627" height="517" frameX="0" frameY="-9" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0011" x="651" y="579" width="627" height="517" frameX="0" frameY="-9" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0012" x="651" y="579" width="627" height="517" frameX="0" frameY="-9" frameWidth="669" frameHeight="561"/>
+	<SubTexture name="SkyBop0013" x="651" y="579" width="627" height="517" frameX="0" frameY="-9" frameWidth="669" frameHeight="561"/>
+</TextureAtlas>

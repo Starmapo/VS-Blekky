@@ -1,0 +1,157 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				0,
+				0
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
+		},
+		{
+			"offsets": [
+				0,
+				1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
+		},
+		{
+			"offsets": [
+				0,
+				1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWNmiss",
+			"indices": [],
+			"name": "MissDown"
+		},
+		{
+			"offsets": [
+				-3,
+				-4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "Up"
+		},
+		{
+			"offsets": [
+				-3,
+				-4
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUPmiss",
+			"indices": [],
+			"name": "MissUp"
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-3,
+				-5
+			],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Right",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-3,
+				-5
+			],
+			"anim": "singRIGHTmiss",
+			"fps": 24,
+			"name": "MissRight",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				-1
+			],
+			"anim": "singLEFT",
+			"fps": 24,
+			"name": "Left",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				4,
+				-1
+			],
+			"anim": "singLEFTmiss",
+			"fps": 24,
+			"name": "MissLeft",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				349,
+				-8
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "GameOverStart",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				333,
+				-8
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "GameOverLoop",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				346,
+				166
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "GameOverRetry",
+			"indices": []
+		}
+	],
+	"vocals_file": "",
+	"no_antialiasing": false,
+	"image": "characters/FERI_PLANTOID_PINKERS-JAM",
+	"position": [
+		40,
+		60
+	],
+	"healthicon": "",
+	"flip_x": true,
+	"healthbar_colors": [
+		161,
+		161,
+		161
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 4,
+	"scale": 1,
+	"_editor_isPlayer": true
+}

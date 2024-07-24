@@ -1,0 +1,56 @@
+{
+	"animations": [
+		{
+			"loop": false,
+			"offsets": [
+				40,
+				16
+			],
+			"anim": "firstDeath",
+			"fps": 24,
+			"name": "GameOverStart",
+			"indices": []
+		},
+		{
+			"loop": true,
+			"offsets": [
+				-22,
+				-1
+			],
+			"anim": "deathLoop",
+			"fps": 24,
+			"name": "GameOverLoop",
+			"indices": []
+		},
+		{
+			"loop": false,
+			"offsets": [
+				-22,
+				-1
+			],
+			"anim": "deathConfirm",
+			"fps": 24,
+			"name": "GameOverRetry",
+			"indices": []
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/MINUS_PPLUS_BF_DEAD",
+	"position": [
+		0,
+		350
+	],
+	"healthicon": "bf",
+	"flip_x": true,
+	"healthbar_colors": [
+		49,
+		176,
+		209
+	],
+	"camera_position": [
+		100,
+		-40
+	],
+	"sing_duration": 4,
+	"scale": 1
+}

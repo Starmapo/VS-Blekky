@@ -23,6 +23,12 @@ class ControlsSubState extends MusicBeatSubstate
 		[true, 'Up', 'note_up', 'Note Up'],
 		[true, 'Right', 'note_right', 'Note Right'],
 		[true],
+		[true, 'DESKTOP NOTES'],
+		[true, 'Left', 'desktopNote_left', 'Desktop Note Left'],
+		[true, 'Down', 'desktopNote_down', 'Desktop Note Down'],
+		[true, 'Up', 'desktopNote_up', 'Desktop Note Up'],
+		[true, 'Right', 'desktopNote_right', 'Desktop Note Right'],
+		[true],
 		[true, 'UI'],
 		[true, 'Left', 'ui_left', 'UI Left'],
 		[true, 'Down', 'ui_down', 'UI Down'],
@@ -59,18 +65,31 @@ class ControlsSubState extends MusicBeatSubstate
 	var onKeyboardMode:Bool = true;
 	
 	var controllerSpr:FlxSprite;
+	var firstBoot:Bool;
 	
-	public function new()
+	public function new(firstBoot:Bool = false)
 	{
 		super();
+		this.firstBoot = firstBoot;
 
 		#if DISCORD_ALLOWED
 		DiscordClient.changePresence("Controls Menu", null);
 		#end
 
-		options.push([true]);
-		options.push([true]);
-		options.push([true, defaultKey]);
+		if (firstBoot) {
+			options.splice(11, options.length);
+			options.splice(0, 7);
+			options.insert(0, [true, "Please adjust your desktop keybinds."]);
+			options.insert(1, [true, "(aka your second set of notes)"]);
+			
+			options.push([true]);
+			options.push([true]);
+			options.push([true, "Accept"]);
+		} else {
+			options.push([true]);
+			options.push([true]);
+			options.push([true, defaultKey]);
+		}
 
 		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = keyboardColor;
@@ -137,6 +156,8 @@ class ControlsSubState extends MusicBeatSubstate
 					var isCentered:Bool = (option.length < 3);
 					var isDefaultKey:Bool = (option[1] == defaultKey);
 					var isDisplayKey:Bool = (isCentered && !isDefaultKey);
+					if (firstBoot && option[1] == "Accept")
+						isDisplayKey = false;
 
 					var text:Alphabet = new Alphabet(200, 300, option[1], !isDisplayKey);
 					text.isMenuItem = true;
@@ -167,6 +188,11 @@ class ControlsSubState extends MusicBeatSubstate
 
 	function addCenteredText(text:Alphabet, option:Array<Dynamic>, id:Int)
 	{
+		if (firstBoot && !text.bold)
+		{
+			text.setScale(0.8);
+			text.text = text.text;
+		}
 		text.screenCenter(X);
 		text.y -= 55;
 		text.startPosition.y -= 55;
@@ -290,7 +316,24 @@ class ControlsSubState extends MusicBeatSubstate
 
 			if(FlxG.keys.justPressed.ENTER || FlxG.gamepads.anyJustPressed(START) || FlxG.gamepads.anyJustPressed(A))
 			{
-				if(options[curOptions[curSelected]][1] != defaultKey)
+				if(options[curOptions[curSelected]][1] == defaultKey)
+				{
+					// Reset to Default
+					ClientPrefs.resetKeys(!onKeyboardMode);
+					ClientPrefs.reloadVolumeKeys();
+					var lastSel:Int = curSelected;
+					createTexts();
+					curSelected = lastSel;
+					updateText();
+					FlxG.sound.play(Paths.sound('cancelMenu'));
+				}
+				else if (firstBoot && options[curOptions[curSelected]][1] == "Accept")
+				{
+					FlxG.sound.play(Paths.sound('confirmMenu'), 1, false, null, false);
+					close();
+					return;
+				}
+				else
 				{
 					bindingBlack = new FlxSprite().makeGraphic(1, 1, /*FlxColor.BLACK*/ FlxColor.WHITE);
 					bindingBlack.scale.set(FlxG.width, FlxG.height);
@@ -311,17 +354,6 @@ class ControlsSubState extends MusicBeatSubstate
 					holdingEsc = 0;
 					ClientPrefs.toggleVolumeKeys(false);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
-				}
-				else
-				{
-					// Reset to Default
-					ClientPrefs.resetKeys(!onKeyboardMode);
-					ClientPrefs.reloadVolumeKeys();
-					var lastSel:Int = curSelected;
-					createTexts();
-					curSelected = lastSel;
-					updateText();
-					FlxG.sound.play(Paths.sound('cancelMenu'));
 				}
 			}
 		}

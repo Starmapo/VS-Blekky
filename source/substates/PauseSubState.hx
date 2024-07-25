@@ -84,7 +84,7 @@ class PauseSubState extends MusicBeatSubstate
 		blueballedBG.updateHitbox();
 		add(blueballedBG);
 
-		var blueballedTxt:FlxText = new FlxText(20, blueballedY, 0, "Blueballed: " + (PlayState.deathCounter + 100), 32);
+		var blueballedTxt:FlxText = new FlxText(20, blueballedY, 0, "Blueballed: " + PlayState.deathCounter, 32);
 		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('AnnyantRoman.ttf'), 32);
 		blueballedTxt.updateHitbox();

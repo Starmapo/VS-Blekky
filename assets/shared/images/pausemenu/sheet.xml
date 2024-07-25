@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Free texture packer v0.6.7 http://free-tex-packer.com
+-->
+<TextureAtlas imagePath="sheet.png" width="834" height="602">
+  <SubTexture name="itemSelected_exit0" x="0" y="0"  width="422" height="132" frameX="-0" frameY="-81" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="itemSelected_options0" x="0" y="132"  width="422" height="132" frameX="-0" frameY="-81" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="itemSelected_restart0" x="0" y="264"  width="422" height="132" frameX="-0" frameY="-81" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="itemSelected_resume0" x="0" y="396"  width="422" height="132" frameX="-0" frameY="-81" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="item_exit0" x="422" y="0"  width="412" height="100" frameX="-0" frameY="-97" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="item_options0" x="422" y="100"  width="412" height="100" frameX="-0" frameY="-97" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="item_restart0" x="422" y="200"  width="412" height="100" frameX="-0" frameY="-97" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="item_resume0" x="422" y="300"  width="412" height="100" frameX="-0" frameY="-97" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="songName0" x="422" y="400"  width="412" height="100" frameX="-91" frameY="-86" frameWidth="503" frameHeight="283"/>
+  <SubTexture name="deathCounter0" x="422" y="500"  width="375" height="102" frameX="-128" frameY="-85" frameWidth="503" frameHeight="283"/>
+</TextureAtlas>

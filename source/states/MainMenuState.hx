@@ -1,11 +1,12 @@
 package states;
 
-import flixel.FlxObject;
+import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import lime.app.Application;
-import states.editors.MasterEditorMenu;
+import openfl.display.Sprite;
 import options.OptionsState;
+import states.editors.MasterEditorMenu;
 
 class MainMenuState extends MusicBeatState
 {
@@ -15,20 +16,22 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 
 	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
+		'blekk',
+		'nah',
+		'intrude',
 		'options'
 	];
 
-	var magenta:FlxSprite;
-	var camFollow:FlxObject;
+	var menuArt:FlxSprite;
+	var scrollBlue:FlxTiledSprite;
+	var scrollGreen:FlxTiledSprite;
+	var greenCamera:FlxCamera;
+	var mask:Sprite = new Sprite();
 
 	override function create()
 	{
+		super.create();
+
 		#if MODS_ALLOWED
 		Mods.pushGlobalMods();
 		#end
@@ -44,47 +47,59 @@ class MainMenuState extends MusicBeatState
 
 		persistentUpdate = persistentDraw = true;
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		bg.scrollFactor.set(0, yScroll);
-		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.updateHitbox();
-		bg.screenCenter();
-		add(bg);
+		updateMask();
+		FlxG.game.addChild(mask);
+		FlxG.game.mask = mask;
 
-		camFollow = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
+		var blueCamera = new FlxCamera();
+		FlxG.cameras.add(blueCamera, false);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
-		magenta.antialiasing = ClientPrefs.data.antialiasing;
-		magenta.scrollFactor.set(0, yScroll);
-		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
-		magenta.updateHitbox();
-		magenta.screenCenter();
-		magenta.visible = false;
-		magenta.color = 0xFFfd719b;
-		add(magenta);
+		scrollBlue = new FlxTiledSprite(Paths.image("mainmenu/scrollBlue"), blueCamera.width, blueCamera.height);
+		scrollBlue.scrollFactor.set();
+		scrollBlue.camera = blueCamera;
+		add(scrollBlue);
+
+		greenCamera = new FlxCamera(FlxG.width * 0.38, 0, Std.int(FlxG.width * 1.11), Std.int(FlxG.height * 1.47));
+		greenCamera.bgColor.alpha = 0;
+		greenCamera.angle = 24;
+		FlxG.cameras.add(greenCamera, false);
+
+		scrollGreen = new FlxTiledSprite(Paths.image("mainmenu/scrollGreen"), greenCamera.width, greenCamera.height);
+		scrollGreen.scrollFactor.set();
+		scrollGreen.camera = greenCamera;
+		add(scrollGreen);
+
+		var normalCamera = new FlxCamera();
+		normalCamera.bgColor.alpha = 0;
+		FlxG.cameras.add(normalCamera);
+		FlxG.cameras.remove(FlxG.camera);
+		FlxG.camera = normalCamera;
+
+		menuArt = new FlxSprite();
+		menuArt.antialiasing = ClientPrefs.data.antialiasing;
+		menuArt.frames = Paths.getSparrowAtlas("mainmenu/art");
+		for (option in optionShit)
+			menuArt.animation.addByPrefix(option, option, 5);
+		menuArt.scrollFactor.set();
+		menuArt.screenCenter(Y);
+		menuArt.x = 350 - (menuArt.width / 2);
+		add(menuArt);
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
 		for (i in 0...optionShit.length)
 		{
-			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140) + offset);
+			var menuItem:FlxSprite = new FlxSprite(900, 20 + (i * 180));
 			menuItem.antialiasing = ClientPrefs.data.antialiasing;
-			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
+			menuItem.frames = Paths.getSparrowAtlas("mainmenu/items");
+			menuItem.animation.addByPrefix('idle', "item_" + optionShit[i], 0);
+			menuItem.animation.addByPrefix('selected', "itemSelected_" + optionShit[i], 0);
 			menuItem.animation.play('idle');
 			menuItems.add(menuItem);
-			var scr:Float = (optionShit.length - 4) * 0.135;
-			if (optionShit.length < 6)
-				scr = 0;
-			menuItem.scrollFactor.set(0, scr);
+			menuItem.scrollFactor.set();
 			menuItem.updateHitbox();
-			menuItem.screenCenter(X);
+			menuItem.x -= menuItem.width / 2;
 		}
 
 		var psychVer:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
@@ -108,15 +123,31 @@ class MainMenuState extends MusicBeatState
 		#end
 		#end
 
-		super.create();
-
-		FlxG.camera.follow(camFollow, null, 9);
+		/*FlxG.watch.add(this, "xScale");
+		FlxG.watch.add(this, "widthScale");
+		FlxG.watch.add(this, "heightScale");*/
 	}
 
 	var selectedSomethin:Bool = false;
+	/*var xScale = 0.4;
+	var widthScale = 1.3;
+	var heightScale = 1.75;*/
 
 	override function update(elapsed:Float)
 	{
+		/*if (FlxG.keys.justPressed.Q)
+			greenCamera.x = FlxG.width * (xScale -= 0.01);
+		if (FlxG.keys.justPressed.E)
+			greenCamera.x = FlxG.width * (xScale += 0.01);
+		if (FlxG.keys.justPressed.ONE)
+			greenCamera.width = Std.int(FlxG.width * (widthScale -= 0.01));
+		if (FlxG.keys.justPressed.TWO)
+			greenCamera.width = Std.int(FlxG.width * (widthScale += 0.01));
+		if (FlxG.keys.justPressed.THREE)
+			greenCamera.height = Std.int(FlxG.height * (heightScale -= 0.01));
+		if (FlxG.keys.justPressed.FOUR)
+			greenCamera.height = Std.int(FlxG.height * (heightScale += 0.01));*/
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * elapsed;
@@ -149,9 +180,6 @@ class MainMenuState extends MusicBeatState
 				else
 				{
 					selectedSomethin = true;
-
-					if (ClientPrefs.data.flashing)
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					FlxFlicker.flicker(menuItems.members[curSelected], 1, 0.06, false, false, function(flick:FlxFlicker)
 					{
@@ -209,7 +237,24 @@ class MainMenuState extends MusicBeatState
 			#end
 		}
 
+		scrollBlue.scrollY = scrollBlue.scrollX = scrollGreen.scrollY = scrollGreen.scrollX += elapsed * 120;
+
 		super.update(elapsed);
+	}
+
+	override function destroy()
+	{
+		FlxG.game.removeChild(mask);
+		FlxG.game.mask = null;
+		mask = null;
+
+		super.destroy();
+	}
+
+	override function onResize(width:Int, height:Int)
+	{
+		updateMask();
+		super.onResize(width, height);
 	}
 
 	function changeItem(huh:Int = 0)
@@ -217,7 +262,6 @@ class MainMenuState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 		menuItems.members[curSelected].animation.play('idle');
 		menuItems.members[curSelected].updateHitbox();
-		menuItems.members[curSelected].screenCenter(X);
 
 		curSelected += huh;
 
@@ -228,9 +272,16 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.members[curSelected].animation.play('selected');
 		menuItems.members[curSelected].centerOffsets();
-		menuItems.members[curSelected].screenCenter(X);
 
-		camFollow.setPosition(menuItems.members[curSelected].getGraphicMidpoint().x,
-			menuItems.members[curSelected].getGraphicMidpoint().y - (menuItems.length > 4 ? menuItems.length * 8 : 0));
+		menuArt.animation.play(optionShit[curSelected]);
+		menuArt.updateHitbox();
+	}
+
+	function updateMask()
+	{
+		mask.graphics.clear();
+		mask.graphics.beginFill(FlxColor.BLACK);
+		mask.graphics.drawRect(0, 0, FlxG.width * FlxG.scaleMode.scale.x, FlxG.height * FlxG.scaleMode.scale.y);
+		mask.graphics.endFill();
 	}
 }

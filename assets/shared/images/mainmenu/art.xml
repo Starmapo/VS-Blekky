@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Free texture packer v0.6.7 http://free-tex-packer.com
+-->
+<TextureAtlas imagePath="art.png" width="1614" height="1465">
+  <SubTexture name="blekk1" x="0" y="0"  width="613" height="429" frameX="-55" frameY="-164" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="blekk0" x="0" y="429"  width="610" height="433" frameX="-56" frameY="-162" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="nah0" x="613" y="0"  width="468" height="605" frameX="-122" frameY="-83" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="nah1" x="0" y="862"  width="464" height="603" frameX="-126" frameY="-82" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="intrude1" x="464" y="862"  width="533" height="583" frameX="-45" frameY="-106" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="intrude0" x="1081" y="0"  width="533" height="582" frameX="-45" frameY="-105" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="options0" x="997" y="605"  width="547" height="388" frameX="-143" frameY="-189" frameWidth="768" frameHeight="768"/>
+  <SubTexture name="options1" x="997" y="993"  width="544" height="389" frameX="-144" frameY="-188" frameWidth="768" frameHeight="768"/>
+</TextureAtlas>

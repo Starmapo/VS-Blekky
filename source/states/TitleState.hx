@@ -1,5 +1,7 @@
 package states;
 
+import openfl.display.Sprite;
+import flixel.addons.display.FlxTiledSprite;
 import backend.WeekData;
 import backend.Highscore;
 
@@ -68,6 +70,11 @@ class TitleState extends MusicBeatState
 
 	public static var updateVersion:String = '';
 
+	var scrollGreen:FlxTiledSprite;
+	var scrollBlue1:FlxTiledSprite;
+	var scrollBlue2:FlxTiledSprite;
+	var mask:Sprite = new Sprite();
+
 	override public function create():Void
 	{
 		Paths.clearStoredMemory();
@@ -82,6 +89,10 @@ class TitleState extends MusicBeatState
 		FlxG.keys.preventDefaultKeys = [TAB];
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
+
+		updateMask();
+		FlxG.game.addChild(mask);
+		FlxG.game.mask = mask;
 
 		super.create();
 
@@ -192,6 +203,9 @@ class TitleState extends MusicBeatState
 		Conductor.bpm = titleJSON.bpm;
 		persistentUpdate = true;
 
+		var greenCamera = new FlxCamera();
+		FlxG.cameras.add(greenCamera, false);
+
 		var bg:FlxSprite = new FlxSprite();
 		bg.antialiasing = ClientPrefs.data.antialiasing;
 
@@ -200,23 +214,51 @@ class TitleState extends MusicBeatState
 		}else{
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		}
+		bg.camera = greenCamera;
 
 		// bg.setGraphicSize(Std.int(bg.width * 0.6));
 		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		logoBl.antialiasing = ClientPrefs.data.antialiasing;
+		scrollGreen = new FlxTiledSprite(Paths.image("mainmenu/scrollGreen"), greenCamera.width, greenCamera.height);
+		scrollGreen.scrollFactor.set();
+		scrollGreen.camera = greenCamera;
+		add(scrollGreen);
 
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
+		var blueCamera1 = new FlxCamera(-FlxG.width * 0.15, 0, Std.int(FlxG.width * 0.3), Std.int(FlxG.height * 1.25));
+		blueCamera1.bgColor.alpha = 0;
+		blueCamera1.angle = -24;
+		FlxG.cameras.add(blueCamera1, false);
+
+		scrollBlue1 = new FlxTiledSprite(Paths.image("mainmenu/scrollBlue"), blueCamera1.width, blueCamera1.height);
+		scrollBlue1.scrollFactor.set();
+		scrollBlue1.camera = blueCamera1;
+		add(scrollBlue1);
+
+		var blueCamera2 = new FlxCamera(FlxG.width * 0.85, 0, Std.int(FlxG.width * 0.3), Std.int(FlxG.height * 1.25));
+		blueCamera2.bgColor.alpha = 0;
+		blueCamera2.angle = 24;
+		FlxG.cameras.add(blueCamera2, false);
+
+		scrollBlue2 = new FlxTiledSprite(Paths.image("mainmenu/scrollBlue"), blueCamera2.width, blueCamera2.height);
+		scrollBlue2.scrollFactor.set();
+		scrollBlue2.camera = blueCamera2;
+		add(scrollBlue2);
+
+		var normalCamera = new FlxCamera();
+		normalCamera.bgColor.alpha = 0;
+		FlxG.cameras.add(normalCamera);
+		FlxG.cameras.remove(FlxG.camera);
+		FlxG.camera = normalCamera;
+
+		logoBl = new FlxSprite(0, -50).loadGraphic(Paths.image("Blekky_Mod_Logo"));
+		logoBl.antialiasing = ClientPrefs.data.antialiasing;
+		logoBl.scale.set(0.5, 0.5);
 		logoBl.updateHitbox();
-		// logoBl.screenCenter();
-		// logoBl.color = FlxColor.BLACK;
+		logoBl.screenCenter(X);
 
 		if(ClientPrefs.data.shaders) swagShader = new ColorSwap();
-		gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
+		/*gfDance = new FlxSprite(titleJSON.gfx, titleJSON.gfy);
 		gfDance.antialiasing = ClientPrefs.data.antialiasing;
 
 		var easterEgg:String = FlxG.save.data.psychDevsEasterEgg;
@@ -249,11 +291,11 @@ class TitleState extends MusicBeatState
 				gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		}
 
-		add(gfDance);
+		add(gfDance);*/
 		add(logoBl);
 		if(swagShader != null)
 		{
-			gfDance.shader = swagShader.shader;
+			// gfDance.shader = swagShader.shader;
 			logoBl.shader = swagShader.shader;
 		}
 
@@ -485,7 +527,25 @@ class TitleState extends MusicBeatState
 			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
 		}
 
+		if (scrollGreen != null)
+			scrollBlue2.scrollY = scrollBlue2.scrollX = scrollBlue1.scrollY = scrollBlue1.scrollX = scrollGreen.scrollY = scrollGreen.scrollX += elapsed * 120;
+
 		super.update(elapsed);
+	}
+
+	override function destroy()
+	{
+		FlxG.game.removeChild(mask);
+		FlxG.game.mask = null;
+		mask = null;
+
+		super.destroy();
+	}
+
+	override function onResize(width:Int, height:Int)
+	{
+		updateMask();
+		super.onResize(width, height);
 	}
 
 	function createCoolText(textArray:Array<String>, ?offset:Float = 0)
@@ -528,8 +588,11 @@ class TitleState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if(logoBl != null)
-			logoBl.animation.play('bump', true);
+		if (logoBl != null) {
+			FlxTween.cancelTweensOf(logoBl);
+			logoBl.scale.set(0.6, 0.6);
+			FlxTween.tween(logoBl, {"scale.x": 0.5, "scale.y": 0.5}, 0.5, {ease: FlxEase.quartOut});
+		}
 
 		if(gfDance != null) {
 			danceLeft = !danceLeft;
@@ -673,5 +736,13 @@ class TitleState extends MusicBeatState
 			}
 			skippedIntro = true;
 		}
+	}
+
+	function updateMask()
+	{
+		mask.graphics.clear();
+		mask.graphics.beginFill(FlxColor.BLACK);
+		mask.graphics.drawRect(0, 0, FlxG.width * FlxG.scaleMode.scale.x, FlxG.height * FlxG.scaleMode.scale.y);
+		mask.graphics.endFill();
 	}
 }

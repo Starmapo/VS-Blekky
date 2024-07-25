@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Free texture packer v0.6.7 http://free-tex-packer.com
+-->
+<TextureAtlas imagePath="items.png" width="1174" height="745">
+  <SubTexture name="itemSelected_intrude0" x="0" y="0"  width="745" height="189" frameX="-0" frameY="-0" frameWidth="745" frameHeight="189"/>
+  <SubTexture name="itemSelected_options0" x="0" y="189"  width="692" height="181" frameX="-0" frameY="-0" frameWidth="692" frameHeight="181"/>
+  <SubTexture name="itemSelected_blekk0" x="0" y="370"  width="549" height="181" frameX="-0" frameY="-0" frameWidth="549" frameHeight="181"/>
+  <SubTexture name="itemSelected_nah0" x="0" y="551"  width="504" height="194" frameX="-0" frameY="-0" frameWidth="504" frameHeight="194"/>
+  <SubTexture name="item_intrude0" x="504" y="551"  width="650" height="145" frameX="-0" frameY="-0" frameWidth="650" frameHeight="145"/>
+  <SubTexture name="item_options0" x="549" y="370"  width="602" height="138" frameX="-0" frameY="-0" frameWidth="602" frameHeight="138"/>
+  <SubTexture name="item_blekk0" x="692" y="189"  width="474" height="138" frameX="-0" frameY="-0" frameWidth="474" frameHeight="138"/>
+  <SubTexture name="item_nah0" x="745" y="0"  width="429" height="149" frameX="-0" frameY="-0" frameWidth="429" frameHeight="149"/>
+</TextureAtlas>

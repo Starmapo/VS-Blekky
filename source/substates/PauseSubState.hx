@@ -1,5 +1,6 @@
 package substates;
 
+import flixel.addons.display.FlxTiledSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.addons.transition.FlxTransitionableState;
 
@@ -21,6 +22,9 @@ class PauseSubState extends MusicBeatSubstate
 	public static var songName:String = null;
 
 	var sheet:FlxAtlasFrames;
+	var bgCamera:FlxCamera;
+	var greenCamera:FlxCamera;
+	var scrollGreen:FlxTiledSprite;
 
 	override function create()
 	{
@@ -53,12 +57,30 @@ class PauseSubState extends MusicBeatSubstate
 
 		FlxG.sound.list.add(pauseMusic);
 
+		bgCamera = new FlxCamera();
+		bgCamera.bgColor.alpha = 0;
+		FlxG.cameras.add(bgCamera, false);
+
 		var bg:FlxSprite = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 		bg.scale.set(FlxG.width, FlxG.height);
 		bg.updateHitbox();
 		bg.alpha = 0;
 		bg.scrollFactor.set();
+		bg.camera = bgCamera;
 		add(bg);
+
+		greenCamera = new FlxCamera(0, 0, Std.int(FlxG.width * 0.25));
+		greenCamera.bgColor.alpha = 0;
+		FlxG.cameras.add(greenCamera, false);
+
+		scrollGreen = new FlxTiledSprite(Paths.image("mainmenu/scrollGreen"), greenCamera.width, greenCamera.height);
+		scrollGreen.scrollFactor.set();
+		scrollGreen.camera = greenCamera;
+		scrollGreen.alpha = 0.5;
+		add(scrollGreen);
+
+		FlxG.cameras.remove(PlayState.instance.camOther, false);
+		FlxG.cameras.add(PlayState.instance.camOther, false);
 
 		var levelInfoBG = new FlxSprite(20, 15 - 86 - 15);
 		levelInfoBG.scrollFactor.set();
@@ -208,6 +230,8 @@ class PauseSubState extends MusicBeatSubstate
 					FlxG.camera.followLerp = 0;
 			}
 		}
+
+		scrollGreen.scrollY = scrollGreen.scrollX += elapsed * 120;
 	}
 
 	public static function restartSong(noTrans:Bool = false)
@@ -227,6 +251,8 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
+		FlxG.cameras.remove(bgCamera);
+		FlxG.cameras.remove(greenCamera);
 
 		super.destroy();
 	}

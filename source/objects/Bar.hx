@@ -7,6 +7,7 @@ class Bar extends FlxSpriteGroup
 	public var leftBar:FlxSprite;
 	public var rightBar:FlxSprite;
 	public var bg:FlxSprite;
+	public var outline:FlxSprite;
 	public var valueFunction:Void->Float = null;
 	public var percent(default, set):Float = 0;
 	public var bounds:Dynamic = {min: 0, max: 1};
@@ -17,30 +18,45 @@ class Bar extends FlxSpriteGroup
 	public var barWidth(default, set):Int = 1;
 	public var barHeight(default, set):Int = 1;
 	public var barOffset:FlxPoint = new FlxPoint(3, 3);
+	public var bgOffset:FlxPoint = new FlxPoint(0, 0);
 
-	public function new(x:Float, y:Float, image:String = 'healthBar', valueFunction:Void->Float = null, boundX:Float = 0, boundY:Float = 1)
+	public function new(x:Float, y:Float, bgImage:String = '', barImage:String = '', outlineImage:String = 'healthBar', valueFunction:Void->Float = null, boundX:Float = 0, boundY:Float = 1)
 	{
 		super(x, y);
 		
 		this.valueFunction = valueFunction;
 		setBounds(boundX, boundY);
-		
-		bg = new FlxSprite().loadGraphic(Paths.image(image));
-		bg.antialiasing = ClientPrefs.data.antialiasing;
-		barWidth = Std.int(bg.width - 6);
-		barHeight = Std.int(bg.height - 6);
 
-		leftBar = new FlxSprite().makeGraphic(Std.int(bg.width), Std.int(bg.height), FlxColor.WHITE);
+		if (bgImage.length > 0)
+		{
+			bg = new FlxSprite().loadGraphic(Paths.image(bgImage));
+			bg.antialiasing = ClientPrefs.data.antialiasing;
+		}
+		
+		outline = new FlxSprite().loadGraphic(Paths.image(outlineImage));
+		outline.antialiasing = ClientPrefs.data.antialiasing;
+		barWidth = Std.int(outline.width - 6);
+		barHeight = Std.int(outline.height - 6);
+
+		if (barImage.length > 0)
+			leftBar = new FlxSprite().loadGraphic(Paths.image(barImage));
+		else
+			leftBar = new FlxSprite().makeGraphic(Std.int(outline.width), Std.int(outline.height), FlxColor.WHITE);
 		//leftBar.color = FlxColor.WHITE;
 		leftBar.antialiasing = antialiasing = ClientPrefs.data.antialiasing;
 
-		rightBar = new FlxSprite().makeGraphic(Std.int(bg.width), Std.int(bg.height), FlxColor.WHITE);
+		if (barImage.length > 0)
+			rightBar = new FlxSprite().loadGraphic(Paths.image(barImage));
+		else
+			rightBar = new FlxSprite().makeGraphic(Std.int(outline.width), Std.int(outline.height), FlxColor.WHITE);
 		rightBar.color = FlxColor.BLACK;
 		rightBar.antialiasing = ClientPrefs.data.antialiasing;
 
+		if (bg != null)
+			add(bg);
 		add(leftBar);
 		add(rightBar);
-		add(bg);
+		add(outline);
 		regenerateClips();
 	}
 
@@ -79,8 +95,10 @@ class Bar extends FlxSpriteGroup
 	{
 		if(leftBar == null || rightBar == null) return;
 
-		leftBar.setPosition(bg.x, bg.y);
-		rightBar.setPosition(bg.x, bg.y);
+		if (bg != null)
+			bg.setPosition(outline.x + bgOffset.x, outline.y + bgOffset.y);
+		leftBar.setPosition(outline.x, outline.y);
+		rightBar.setPosition(outline.x, outline.y);
 
 		var leftSize:Float = 0;
 		if(leftToRight) leftSize = FlxMath.lerp(0, barWidth, percent / 100);
@@ -98,7 +116,6 @@ class Bar extends FlxSpriteGroup
 
 		barCenter = leftBar.x + leftSize + barOffset.x;
 
-		// flixel is retarded
 		leftBar.clipRect = leftBar.clipRect;
 		rightBar.clipRect = rightBar.clipRect;
 	}
@@ -107,15 +124,15 @@ class Bar extends FlxSpriteGroup
 	{
 		if(leftBar != null)
 		{
-			leftBar.setGraphicSize(Std.int(bg.width), Std.int(bg.height));
+			leftBar.setGraphicSize(Std.int(outline.width), Std.int(outline.height));
 			leftBar.updateHitbox();
-			leftBar.clipRect = new FlxRect(0, 0, Std.int(bg.width), Std.int(bg.height));
+			leftBar.clipRect = new FlxRect(0, 0, Std.int(outline.width), Std.int(outline.height));
 		}
 		if(rightBar != null)
 		{
-			rightBar.setGraphicSize(Std.int(bg.width), Std.int(bg.height));
+			rightBar.setGraphicSize(Std.int(outline.width), Std.int(outline.height));
 			rightBar.updateHitbox();
-			rightBar.clipRect = new FlxRect(0, 0, Std.int(bg.width), Std.int(bg.height));
+			rightBar.clipRect = new FlxRect(0, 0, Std.int(outline.width), Std.int(outline.height));
 		}
 		updateBar();
 	}

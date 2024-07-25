@@ -196,7 +196,7 @@ class MainMenuState extends MusicBeatState
 							Difficulty.resetList();
 							
 							// var songLowercase:String = Paths.formatToSongPath(optionShit[curSelected]);
-							var songLowercase:String = "tutorial";
+							var songLowercase:String = "fresh";
 							var poop:String = Highscore.formatSong(songLowercase, 0);
 							PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 

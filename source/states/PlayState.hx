@@ -155,6 +155,7 @@ class PlayState extends MusicBeatState
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var boyfriend:Character = null;
+	public var jufan:Character;
 
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
@@ -439,6 +440,14 @@ class PlayState extends MusicBeatState
 			gf.scrollFactor.set(0.95, 0.95);
 			gfGroup.add(gf);
 			startCharacterScripts(gf.curCharacter);
+		}
+
+		if (songName == "blekk")
+		{
+			jufan = new Character(0, 0, "jufan");
+			startCharacterPos(jufan);
+			dadGroup.add(jufan);
+			startCharacterScripts(jufan.curCharacter);
 		}
 
 		dad = new Character(0, 0, SONG.player2);
@@ -2025,6 +2034,8 @@ class PlayState extends MusicBeatState
 						char = boyfriend;
 					case 'gf' | 'girlfriend':
 						char = gf;
+					case 'jufan':
+						char = jufan;
 					default:
 						if(flValue2 == null) flValue2 = 0;
 						switch(Math.round(flValue2)) {
@@ -2897,6 +2908,7 @@ class PlayState extends MusicBeatState
 			var char:Character = dad;
 			var animToPlay:String = singAnimations[Std.int(Math.abs(Math.min(singAnimations.length-1, note.noteData)))] + altAnim;
 			if(note.gfNote) char = gf;
+			else if (note.jufanNote) char = jufan;
 
 			if(char != null)
 			{
@@ -3113,6 +3125,8 @@ class PlayState extends MusicBeatState
 			boyfriend.dance();
 		if (dad != null && beat % dad.danceEveryNumBeats == 0 && !dad.getAnimationName().startsWith('sing') && !dad.stunned)
 			dad.dance();
+		if (jufan != null && beat % jufan.danceEveryNumBeats == 0 && !jufan.getAnimationName().startsWith('sing') && !jufan.stunned)
+			jufan.dance();
 	}
 
 	public function playerDance():Void

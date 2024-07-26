@@ -981,6 +981,7 @@ class FunkinLua {
 			switch(character.toLowerCase()) {
 				case 'dad': game.dad.dance();
 				case 'gf' | 'girlfriend': if(game.gf != null) game.gf.dance();
+				case 'jufan': if (game.jufan != null) game.jufan.dance();
 				default: game.boyfriend.dance();
 			}
 		});

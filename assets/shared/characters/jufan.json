@@ -1,65 +1,47 @@
 {
 	"animations": [
 		{
-			"loop": false,
 			"offsets": [
 				0,
 				0
 			],
-			"anim": "idle",
+			"loop": false,
 			"fps": 24,
-			"name": "Idle",
-			"indices": []
+			"anim": "idle",
+			"indices": [],
+			"name": "Idle"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				23,
+				42,
 				-50
 			],
-			"anim": "singDOWN",
+			"loop": false,
 			"fps": 24,
-			"name": "Down",
-			"indices": []
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "Down"
 		},
 		{
-			"loop": false,
 			"offsets": [
-				29,
+				59,
 				37
 			],
+			"loop": false,
+			"fps": 24,
 			"anim": "singUP",
-			"fps": 24,
-			"name": "Up",
-			"indices": []
-		},
-		{
-			"offsets": [
-				-27,
-				20
-			],
 			"indices": [],
-			"fps": 24,
-			"anim": "singLEFT",
-			"loop": false,
-			"name": "Right"
+			"name": "Up"
 		},
 		{
-			"offsets": [
-				-70,
-				20
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singRIGHT",
 			"loop": false,
-			"name": "Left"
-		},
-		{
 			"offsets": [
 				16,
 				20
 			],
+			"anim": "appear",
+			"fps": 24,
+			"name": "Appear",
 			"indices": [
 				0,
 				1,
@@ -73,22 +55,40 @@
 				9,
 				10,
 				11
+			]
+		},
+		{
+			"offsets": [
+				10,
+				20
 			],
+			"indices": [],
 			"fps": 24,
-			"anim": "appear",
+			"anim": "singLEFT",
 			"loop": false,
-			"name": "Appear"
+			"name": "Left"
+		},
+		{
+			"offsets": [
+				23,
+				20
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singRIGHT",
+			"loop": false,
+			"name": "Right"
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
 	"image": "characters/JUFAN-JAM",
 	"position": [
-		-80,
+		10,
 		240
 	],
 	"healthicon": "",
-	"flip_x": true,
+	"flip_x": false,
 	"healthbar_colors": [
 		161,
 		161,

@@ -28,6 +28,8 @@ typedef SwagSong =
 
 	@:optional var arrowSkin:String;
 	@:optional var splashSkin:String;
+
+	@:optional var hasDesktop:Bool;
 }
 
 class Song
@@ -80,6 +82,11 @@ class Song
 					else i++;
 				}
 			}
+		}
+
+		if (songJson.hasDesktop == null) 
+		{
+			songJson.hasDesktop = false;
 		}
 	}
 

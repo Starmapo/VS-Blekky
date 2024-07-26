@@ -75,7 +75,7 @@ class PauseSubState extends MusicBeatSubstate
 		scrollGreen = new FlxTiledSprite(Paths.image("mainmenu/scrollGreen"), greenCamera.width, greenCamera.height);
 		scrollGreen.scrollFactor.set();
 		scrollGreen.camera = greenCamera;
-		scrollGreen.alpha = 0.5;
+		scrollGreen.alpha = 0;
 		add(scrollGreen);
 
 		FlxG.cameras.remove(PlayState.instance.camOther, false);
@@ -143,6 +143,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		FlxTween.tween(bg, {alpha: 0.6}, 0.4, {ease: FlxEase.quartInOut});
+		FlxTween.tween(scrollGreen, {alpha: 0.5}, 0.4, {ease: FlxEase.quartInOut});
 		FlxTween.tween(levelInfo, {alpha: 1, y: 20}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(levelInfoBG, {alpha: 1, y: levelInfoBG.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.3});
 		FlxTween.tween(blueballedTxt, {alpha: 1, y: blueballedTxt.y + 5}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
@@ -290,13 +291,14 @@ class PauseSubState extends MusicBeatSubstate
 		}
 
 		for (i in 0...menuItems.length) {
-			var item = new FlxSprite(0, -33 + (i * 164));
+			var item = new FlxSprite(-422, -33 + (i * 164));
 			item.frames = sheet;
 			item.animation.addByPrefix('idle', 'item_' + menuItems[i], 0);
 			item.animation.addByPrefix('selected', 'itemSelected_' + menuItems[i], 0);
 			item.animation.play('idle');
 			item.updateHitbox();
 			grpMenuShit.add(item);
+			FlxTween.tween(item, {x: 0}, 0.4, {ease: FlxEase.quartInOut});
 		}
 		curSelected = 0;
 		changeSelection();

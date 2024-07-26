@@ -17,7 +17,7 @@ class ControlsSubState extends MusicBeatSubstate
 
 	//Show on gamepad - Display name - Save file key - Rebind display name
 	var options:Array<Dynamic> = [
-		[true, 'NOTES'],
+		[true, 'MAIN NOTES'],
 		[true, 'Left', 'note_left', 'Note Left'],
 		[true, 'Down', 'note_down', 'Note Down'],
 		[true, 'Up', 'note_up', 'Note Up'],
@@ -78,9 +78,9 @@ class ControlsSubState extends MusicBeatSubstate
 
 		if (firstBoot) {
 			options.splice(11, options.length);
-			options.splice(0, 7);
-			options.insert(0, [true, "Please adjust your desktop keybinds."]);
-			options.insert(1, [true, "(aka your second set of notes)"]);
+			options[0][1] = "Set up your keybinds.";
+			options[6][1] = "Set up a second set of keybinds,";
+			options.insert(7, [true, "and keep 'em in your mind."]);
 			
 			options.push([true]);
 			options.push([true]);
@@ -329,7 +329,7 @@ class ControlsSubState extends MusicBeatSubstate
 				}
 				else if (firstBoot && options[curOptions[curSelected]][1] == "Accept")
 				{
-					FlxG.sound.play(Paths.sound('confirmMenu'), 1, false, null, false);
+					FlxG.sound.play(Paths.sound('confirmMenu')).persist = true;
 					close();
 					return;
 				}

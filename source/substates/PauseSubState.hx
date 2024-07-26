@@ -1,12 +1,11 @@
 package substates;
 
 import flixel.addons.display.FlxTiledSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.addons.transition.FlxTransitionableState;
-
-import states.StoryMenuState;
-import states.FreeplayState;
+import flixel.graphics.frames.FlxAtlasFrames;
 import options.OptionsState;
+import states.MainMenuState;
+import states.StoryMenuState;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -112,7 +111,7 @@ class PauseSubState extends MusicBeatSubstate
 		blueballedTxt.updateHitbox();
 		add(blueballedTxt);
 
-		practiceText = new FlxText(20, 15 + 101, 0, "PRACTICE MODE", 32);
+		practiceText = new FlxText(20, blueballedBG.y + (85 + 102) * 0.75 + 20, 0, "PRACTICE MODE", 32);
 		practiceText.scrollFactor.set();
 		practiceText.setFormat(Paths.font('AnnyantRoman.ttf'), 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
@@ -222,7 +221,7 @@ class PauseSubState extends MusicBeatSubstate
 					if(PlayState.isStoryMode)
 						MusicBeatState.switchState(new StoryMenuState());
 					else 
-						MusicBeatState.switchState(new FreeplayState());
+						MusicBeatState.switchState(new MainMenuState());
 
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.changedDifficulty = false;

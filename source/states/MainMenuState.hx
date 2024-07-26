@@ -1,7 +1,7 @@
 package states;
 
-import backend.Song;
 import backend.Highscore;
+import backend.Song;
 import backend.WeekData;
 import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -10,6 +10,7 @@ import lime.app.Application;
 import openfl.display.Sprite;
 import options.OptionsState;
 import states.editors.MasterEditorMenu;
+import substates.GameplayChangersSubstate;
 
 class MainMenuState extends MusicBeatState
 {
@@ -173,7 +174,12 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 
-			if (controls.ACCEPT)
+			if(FlxG.keys.justPressed.CONTROL)
+			{
+				persistentUpdate = false;
+				openSubState(new GameplayChangersSubstate());
+			}
+			else if (controls.ACCEPT)
 			{
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 				selectedSomethin = true;
@@ -240,6 +246,12 @@ class MainMenuState extends MusicBeatState
 		mask = null;
 
 		super.destroy();
+	}
+
+	override function closeSubState()
+	{
+		persistentUpdate = true;
+		super.closeSubState();
 	}
 
 	override function onResize(width:Int, height:Int)

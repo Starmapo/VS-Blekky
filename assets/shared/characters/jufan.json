@@ -14,19 +14,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				98,
-				-5
-			],
-			"anim": "singLEFT",
-			"fps": 24,
-			"name": "Left",
-			"indices": []
-		},
-		{
-			"loop": false,
-			"offsets": [
-				-13,
-				15
+				23,
+				-50
 			],
 			"anim": "singDOWN",
 			"fps": 24,
@@ -36,8 +25,8 @@
 		{
 			"loop": false,
 			"offsets": [
-				62,
-				26
+				29,
+				37
 			],
 			"anim": "singUP",
 			"fps": 24,
@@ -45,63 +34,65 @@
 			"indices": []
 		},
 		{
-			"loop": false,
 			"offsets": [
-				-61,
-				-6
+				-27,
+				20
 			],
+			"indices": [],
+			"fps": 24,
+			"anim": "singLEFT",
+			"loop": false,
+			"name": "Right"
+		},
+		{
+			"offsets": [
+				-70,
+				20
+			],
+			"indices": [],
+			"fps": 24,
 			"anim": "singRIGHT",
-			"fps": 24,
-			"name": "Right",
-			"indices": []
-		},
-		{
-			"offsets": [
-				84,
-				-2
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "techniqueStart",
 			"loop": false,
-			"name": "TechniqueStart"
+			"name": "Left"
 		},
 		{
 			"offsets": [
-				83,
-				-12
+				16,
+				20
 			],
-			"indices": [],
-			"fps": 24,
-			"anim": "techniqueLoop",
-			"loop": true,
-			"name": "TechniqueLoop"
-		},
-		{
-			"offsets": [
-				88,
-				-2
+			"indices": [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11
 			],
-			"indices": [],
 			"fps": 24,
-			"anim": "techniqueLaunch",
+			"anim": "appear",
 			"loop": false,
-			"name": "TechniqueLaunch"
+			"name": "Appear"
 		}
 	],
 	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/MINUS_BLEKKY-JAM",
+	"image": "characters/JUFAN-JAM",
 	"position": [
-		40,
-		300
+		-80,
+		240
 	],
-	"healthicon": "blekky",
-	"flip_x": false,
+	"healthicon": "",
+	"flip_x": true,
 	"healthbar_colors": [
-		120,
-		61,
-		135
+		161,
+		161,
+		161
 	],
 	"camera_position": [
 		0,

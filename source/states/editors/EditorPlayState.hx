@@ -359,6 +359,7 @@ class EditorPlayState extends MusicBeatSubstate
 				var daStrumTime:Float = songNotes[0];
 				if(daStrumTime < startPos) continue;
 
+				if (songNotes[1] > 7) continue;
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 				var gottaHitNote:Bool = section.mustHitSection;
 
@@ -373,7 +374,7 @@ class EditorPlayState extends MusicBeatSubstate
 				else
 					oldNote = null;
 
-				var swagNote:Note = new Note(daStrumTime, daNoteData, oldNote, this);
+				var swagNote:Note = new Note(daStrumTime, daNoteData, false, oldNote, this);
 				swagNote.mustPress = gottaHitNote;
 				swagNote.sustainLength = songNotes[2];
 				//swagNote.gfNote = (section.gfSection && (songNotes[1]<4));
@@ -392,7 +393,7 @@ class EditorPlayState extends MusicBeatSubstate
 					{
 						oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
-						var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote), daNoteData, oldNote, true, this);
+						var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote), daNoteData, swagNote.desktopNote, oldNote, true, this);
 						sustainNote.mustPress = gottaHitNote;
 						//sustainNote.gfNote = (section.gfSection && (songNotes[1]<4));
 						sustainNote.noteType = swagNote.noteType;
@@ -465,6 +466,7 @@ class EditorPlayState extends MusicBeatSubstate
 			var babyArrow:StrumNote = new StrumNote(strumLineX, strumLineY, i, player);
 			babyArrow.downScroll = ClientPrefs.data.downScroll;
 			babyArrow.alpha = targetAlpha;
+			babyArrow.scrollFactor.set();
 
 			if (player == 1)
 				playerStrums.add(babyArrow);
@@ -926,6 +928,7 @@ class EditorPlayState extends MusicBeatSubstate
 	function spawnNoteSplash(x:Float, y:Float, data:Int, ?note:Note = null) {
 		var splash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 		splash.setupNoteSplash(x, y, data, note);
+		splash.scrollFactor.set();
 		grpNoteSplashes.add(splash);
 	}
 	

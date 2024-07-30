@@ -64,7 +64,6 @@ class PauseSubState extends MusicBeatSubstate
 		bg.scale.set(FlxG.width, FlxG.height);
 		bg.updateHitbox();
 		bg.alpha = 0;
-		bg.scrollFactor.set();
 		bg.camera = bgCamera;
 		add(bg);
 
@@ -73,16 +72,36 @@ class PauseSubState extends MusicBeatSubstate
 		FlxG.cameras.add(greenCamera, false);
 
 		scrollGreen = new FlxTiledSprite(Paths.image("mainmenu/scrollGreen"), greenCamera.width, greenCamera.height);
-		scrollGreen.scrollFactor.set();
 		scrollGreen.camera = greenCamera;
 		scrollGreen.alpha = 0;
 		add(scrollGreen);
 
+		var pauseCamera = new FlxCamera();
+		pauseCamera.bgColor.alpha = 0;
+		FlxG.cameras.add(pauseCamera, false);
+		camera = pauseCamera;
+
+		if (PlayState.instance.transparentWindow)
+		{
+			// THIS IS REALLY STUPID! DO NOT CODE LIKE ME!
+			bgCamera.x = pauseCamera.x = greenCamera.x = PlayState.instance.camHUD.x;
+			bgCamera.y = pauseCamera.y = greenCamera.y = PlayState.instance.camHUD.y;
+			bgCamera.width = pauseCamera.width = PlayState.instance.camHUD.width;
+			bgCamera.height = pauseCamera.height = PlayState.instance.camHUD.height;
+			bgCamera.zoom = pauseCamera.zoom = greenCamera.zoom = PlayState.instance.camHUD.zoom;
+			greenCamera.setSize(Std.int(greenCamera.width * greenCamera.zoom), Std.int(greenCamera.height * greenCamera.zoom));
+			bgCamera.scroll.copyFrom(pauseCamera.scroll.copyFrom(greenCamera.scroll.copyFrom(PlayState.instance.camHUD.scroll)));
+		}
+
+		if (PlayState.instance.hasDesktop)
+		{
+			FlxG.cameras.remove(PlayState.instance.camDesktop, false);
+			FlxG.cameras.add(PlayState.instance.camDesktop, false);
+		}
 		FlxG.cameras.remove(PlayState.instance.camOther, false);
 		FlxG.cameras.add(PlayState.instance.camOther, false);
 
 		var levelInfoBG = new FlxSprite(20, 15 - 86 - 15);
-		levelInfoBG.scrollFactor.set();
 		levelInfoBG.frames = sheet;
 		levelInfoBG.animation.addByPrefix('idle', 'songName', 0);
 		levelInfoBG.animation.play('idle');
@@ -90,14 +109,12 @@ class PauseSubState extends MusicBeatSubstate
 		add(levelInfoBG);
 
 		var levelInfo:FlxText = new FlxText(20, 15, 0, PlayState.SONG.song, 64);
-		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("AnnyantRoman.ttf"), 64);
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
 		var blueballedY = 15 + 105;
 		var blueballedBG = new FlxSprite(20, blueballedY - (85 + 25) * 0.75);
-		blueballedBG.scrollFactor.set();
 		blueballedBG.frames = sheet;
 		blueballedBG.animation.addByPrefix('idle', 'deathCounter', 0);
 		blueballedBG.animation.play('idle');
@@ -106,13 +123,11 @@ class PauseSubState extends MusicBeatSubstate
 		add(blueballedBG);
 
 		var blueballedTxt:FlxText = new FlxText(20, blueballedY, 0, "Blueballed: " + PlayState.deathCounter, 32);
-		blueballedTxt.scrollFactor.set();
 		blueballedTxt.setFormat(Paths.font('AnnyantRoman.ttf'), 32);
 		blueballedTxt.updateHitbox();
 		add(blueballedTxt);
 
 		practiceText = new FlxText(20, blueballedBG.y + (85 + 102) * 0.75 + 20, 0, "PRACTICE MODE", 32);
-		practiceText.scrollFactor.set();
 		practiceText.setFormat(Paths.font('AnnyantRoman.ttf'), 32);
 		practiceText.x = FlxG.width - (practiceText.width + 20);
 		practiceText.updateHitbox();
@@ -120,7 +135,6 @@ class PauseSubState extends MusicBeatSubstate
 		add(practiceText);
 
 		var chartingText:FlxText = new FlxText(20, 15 + 101, 0, "CHARTING MODE", 32);
-		chartingText.scrollFactor.set();
 		chartingText.setFormat(Paths.font('AnnyantRoman.ttf'), 32);
 		chartingText.x = FlxG.width - (chartingText.width + 20);
 		chartingText.y = FlxG.height - (chartingText.height + 20);
@@ -153,7 +167,6 @@ class PauseSubState extends MusicBeatSubstate
 		add(grpMenuShit);
 
 		regenMenu();
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 
 		super.create();
 	}
@@ -203,6 +216,8 @@ class PauseSubState extends MusicBeatSubstate
 				case "restart":
 					restartSong();
 				case 'options':
+					PlayState.instance.disableTransparentWindow();
+
 					PlayState.instance.paused = true; // For lua
 					PlayState.instance.vocals.volume = 0;
 					MusicBeatState.switchState(new OptionsState());
@@ -214,6 +229,8 @@ class PauseSubState extends MusicBeatSubstate
 					}
 					OptionsState.onPlayState = true;
 				case "exit":
+					PlayState.instance.disableTransparentWindow();
+					
 					#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
@@ -236,6 +253,8 @@ class PauseSubState extends MusicBeatSubstate
 
 	public static function restartSong(noTrans:Bool = false)
 	{
+		PlayState.instance.disableTransparentWindow();
+		
 		PlayState.instance.paused = true; // For lua
 		FlxG.sound.music.volume = 0;
 		PlayState.instance.vocals.volume = 0;
@@ -251,7 +270,8 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
-		FlxG.cameras.remove(bgCamera);
+		if (bgCamera != null)
+			FlxG.cameras.remove(bgCamera);
 		FlxG.cameras.remove(greenCamera);
 
 		super.destroy();

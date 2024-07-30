@@ -3,11 +3,11 @@
 Created with Free texture packer v0.6.7 http://free-tex-packer.com
 -->
 <TextureAtlas imagePath="walkers.png" width="2916" height="2200">
-  <SubTexture name="Bonie" x="0" y="0"  width="1087" height="1199" frameX="-178" frameY="-478" frameWidth="1868" frameHeight="1677"/>
-  <SubTexture name="Qinsil" x="0" y="1199"  width="1089" height="1001" frameX="-415" frameY="-676" frameWidth="1868" frameHeight="1677"/>
-  <SubTexture name="Generic1" x="1087" y="0"  width="996" height="727" frameX="-233" frameY="-950" frameWidth="1868" frameHeight="1677"/>
-  <SubTexture name="BonieGuard1" x="1089" y="727"  width="833" height="723" frameX="-307" frameY="-954" frameWidth="1868" frameHeight="1677"/>
-  <SubTexture name="Generic2" x="1089" y="1450"  width="901" height="644" frameX="-286" frameY="-1033" frameWidth="1868" frameHeight="1677"/>
-  <SubTexture name="Lucius" x="1922" y="727"  width="871" height="652" frameX="-307" frameY="-1025" frameWidth="1868" frameHeight="1677"/>
-  <SubTexture name="BonieGuard2" x="2083" y="0"  width="833" height="723" frameX="-307" frameY="-954" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="QueenBonie0" x="0" y="0"  width="1087" height="1199" frameX="-178" frameY="-478" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="Qinsil0" x="0" y="1199"  width="1089" height="1001" frameX="-415" frameY="-676" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="Generic10" x="1087" y="0"  width="996" height="727" frameX="-233" frameY="-950" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="BonieGuard10" x="1089" y="727"  width="833" height="723" frameX="-307" frameY="-954" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="Generic20" x="1089" y="1450"  width="901" height="644" frameX="-286" frameY="-1033" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="Lucius0" x="1922" y="727"  width="871" height="652" frameX="-307" frameY="-1025" frameWidth="1868" frameHeight="1677"/>
+  <SubTexture name="BonieGuard20" x="2083" y="0"  width="833" height="723" frameX="-307" frameY="-954" frameWidth="1868" frameHeight="1677"/>
 </TextureAtlas>

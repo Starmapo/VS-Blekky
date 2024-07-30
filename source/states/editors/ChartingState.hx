@@ -55,7 +55,8 @@ class ChartingState extends MusicBeatState
 		'Hey!',
 		'Hurt Note',
 		'GF Sing',
-		'No Animation'
+		'No Animation',
+		'Jufan Sing'
 	];
 	public var ignoreWarnings = false;
 	var curNoteTypes:Array<String> = [];
@@ -80,7 +81,7 @@ class ChartingState extends MusicBeatState
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
 		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
-		['Jufan Sing', "Makes Jufan sing instead of the opponent"]
+		['Enable Transparent Window', "Changes the window to be transparent, zooms out the game, and makes the desktop UI appear.\n\nObviously only works when desktop notes are enabled for the chart."]
 	];
 
 	var _file:FileReference;
@@ -207,11 +208,15 @@ class ChartingState extends MusicBeatState
 				player2: 'dad',
 				gfVersion: 'gf',
 				speed: 1,
-				stage: 'stage'
+				stage: 'stage',
+				hasDesktop: false
 			};
 			addSection();
 			PlayState.SONG = _song;
 		}
+
+		noteCount = _song.hasDesktop ? 12 : 8;
+		columns = noteCount + 1;
 
 		// Paths.clearMemory();
 
@@ -1023,7 +1028,7 @@ class ChartingState extends MusicBeatState
 		eventPushedMap = null;
 		#end
 
-		descText = new FlxText(20, 200, 0, eventStuff[0][0]);
+		descText = new FlxText(20, 200, 280, eventStuff[0][0]);
 
 		var leEvents:Array<String> = [];
 		for (i in 0...eventStuff.length) {
@@ -2804,8 +2809,8 @@ class ChartingState extends MusicBeatState
 				daText.sprTracker = note;
 			}
 			note.mustPress = _song.notes[curSec].mustHitSection;
-			if (i[1] > 7) note.desktopNote = note.mustPress = true;
-			else if (i[1] > 3) note.mustPress = !note.mustPress;
+			if (i[1] > 7) note.mustPress = true;
+			else if (i[1] > 3 && i[1] < 8) note.mustPress = !note.mustPress;
 		}
 
 		// CURRENT EVENTS
@@ -2867,7 +2872,7 @@ class ChartingState extends MusicBeatState
 		var daStrumTime = i[0];
 		var daSus:Dynamic = i[2];
 
-		var note:Note = new Note(daStrumTime, daNoteInfo % 4, null, null, true);
+		var note:Note = new Note(daStrumTime, daNoteInfo % 4, daNoteInfo > 7, null, null, true);
 		if(daSus != null) { //Common note
 			if(!Std.isOfType(i[3], String)) //Convert old note type to new note type format
 			{

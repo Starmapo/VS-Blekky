@@ -8,7 +8,6 @@ spawnedLucius = false
 spawnedQinsil = false
 
 function onCreate()
-	luaDebugMode = true
 	makeBGSprite("bg", 0.75, 0.75)
 	makeBGSprite("fg")
 	bgWidth = getProperty("bg.width")
@@ -28,10 +27,9 @@ end
 function onTweenCompleted(tag, vars)
 	if string.sub(tag, -1) == "x" then
 		local name = string.sub(tag, 1, -2)
-		debugPrint(name)
 		removeLuaSprite(name)
 		
-		if name == "Bonie" then
+		if name == "QueenBonie" then
 			spawnedBonie = false
 		elseif name == "Lucius" then
 			spawnedLucius = false
@@ -52,7 +50,7 @@ end
 function makeRandomWalker()
 	if getRandomBool(10) and (not spawnedBonie) then
 		makeWalker("BonieGuard1", 2.4)
-		makeWalker("Bonie", 1.2)
+		makeWalker("QueenBonie", 1.2)
 		makeWalker("BonieGuard2")
 		spawnedBonie = true
 		return

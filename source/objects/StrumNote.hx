@@ -58,7 +58,7 @@ class StrumNote extends FlxSprite
 		if(Paths.fileExists('images/$customSkin.png', IMAGE)) skin = customSkin;
 
 		texture = skin; //Load texture and anims
-		scrollFactor.set();
+		// scrollFactor.set();
 	}
 
 	public function reloadNote()
@@ -142,8 +142,11 @@ class StrumNote extends FlxSprite
 	public function postAddedToGroup() {
 		playAnim('static');
 		x += Note.swagWidth * noteData;
-		x += 50;
-		x += ((FlxG.width / 2) * player);
+		if (player != 2)
+		{
+			x += 50;
+			x += ((FlxG.width / 2) * player);
+		}
 		ID = noteData;
 	}
 

@@ -20,12 +20,15 @@ class Bar extends FlxSpriteGroup
 	public var barOffset:FlxPoint = new FlxPoint(3, 3);
 	public var bgOffset:FlxPoint = new FlxPoint(0, 0);
 
-	public function new(x:Float, y:Float, bgImage:String = '', barImage:String = '', outlineImage:String = 'healthBar', valueFunction:Void->Float = null, boundX:Float = 0, boundY:Float = 1)
+	var desktop:Bool;
+
+	public function new(x:Float, y:Float, bgImage:String = '', barImage:String = '', outlineImage:String = 'healthBar', valueFunction:Void->Float = null, boundX:Float = 0, boundY:Float = 1, desktop:Bool = false)
 	{
 		super(x, y);
 		
 		this.valueFunction = valueFunction;
 		setBounds(boundX, boundY);
+		this.desktop = desktop;
 
 		if (bgImage.length > 0)
 		{
@@ -101,20 +104,24 @@ class Bar extends FlxSpriteGroup
 		rightBar.setPosition(outline.x, outline.y);
 
 		var leftSize:Float = 0;
-		if(leftToRight) leftSize = FlxMath.lerp(0, barWidth, percent / 100);
-		else leftSize = FlxMath.lerp(0, barWidth, 1 - percent / 100);
+		var size = desktop ? barHeight : barWidth;
+		if(leftToRight) leftSize = FlxMath.lerp(0, size, percent / 100);
+		else leftSize = FlxMath.lerp(0, size, 1 - percent / 100);
 
-		leftBar.clipRect.width = leftSize;
-		leftBar.clipRect.height = barHeight;
+		leftBar.clipRect.width = desktop ? barWidth : leftSize;
+		leftBar.clipRect.height = desktop ? leftSize : barHeight;
 		leftBar.clipRect.x = barOffset.x;
 		leftBar.clipRect.y = barOffset.y;
 
-		rightBar.clipRect.width = barWidth - leftSize;
-		rightBar.clipRect.height = barHeight;
-		rightBar.clipRect.x = barOffset.x + leftSize;
-		rightBar.clipRect.y = barOffset.y;
+		rightBar.clipRect.width = barWidth - (desktop ? 0 : leftSize);
+		rightBar.clipRect.height = barHeight - (desktop ? leftSize : 0);
+		rightBar.clipRect.x = barOffset.x + (desktop ? 0 : leftSize);
+		rightBar.clipRect.y = barOffset.y + (desktop ? leftSize : 0);
 
-		barCenter = leftBar.x + leftSize + barOffset.x;
+		if (desktop)
+			barCenter = leftBar.y + leftSize + barOffset.y;
+		else
+			barCenter = leftBar.x + leftSize + barOffset.x;
 
 		leftBar.clipRect = leftBar.clipRect;
 		rightBar.clipRect = rightBar.clipRect;

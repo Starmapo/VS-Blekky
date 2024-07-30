@@ -63,7 +63,7 @@ class MainMenuState extends MusicBeatState
 		scrollBlue.camera = blueCamera;
 		add(scrollBlue);
 
-		greenCamera = new FlxCamera(FlxG.width * 0.38, 0, Std.int(FlxG.width * 1.11), Std.int(FlxG.height * 1.47));
+		greenCamera = new FlxCamera(Std.int(FlxG.width * 0.38), 0, Std.int(FlxG.width * 1.11), Std.int(FlxG.height * 1.47));
 		greenCamera.bgColor.alpha = 0;
 		greenCamera.angle = 24;
 		FlxG.cameras.add(greenCamera, false);
@@ -241,9 +241,12 @@ class MainMenuState extends MusicBeatState
 
 	override function destroy()
 	{
-		FlxG.game.removeChild(mask);
-		FlxG.game.mask = null;
-		mask = null;
+		if (mask != null)
+		{
+			FlxG.game.mask = null;
+			FlxG.game.removeChild(mask);
+			mask = null;
+		}
 
 		super.destroy();
 	}
@@ -282,6 +285,9 @@ class MainMenuState extends MusicBeatState
 
 	function updateMask()
 	{
+		if (mask == null)
+			return;
+		
 		mask.graphics.clear();
 		mask.graphics.beginFill(FlxColor.BLACK);
 		mask.graphics.drawRect(0, 0, FlxG.width * FlxG.scaleMode.scale.x, FlxG.height * FlxG.scaleMode.scale.y);

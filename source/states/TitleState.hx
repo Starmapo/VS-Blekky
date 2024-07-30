@@ -229,7 +229,7 @@ class TitleState extends MusicBeatState
 		scrollGreen.camera = greenCamera;
 		add(scrollGreen);
 
-		var blueCamera1 = new FlxCamera(-FlxG.width * 0.15, 0, Std.int(FlxG.width * 0.3), Std.int(FlxG.height * 1.25));
+		var blueCamera1 = new FlxCamera(Std.int(-FlxG.width * 0.15), 0, Std.int(FlxG.width * 0.3), Std.int(FlxG.height * 1.25));
 		blueCamera1.bgColor.alpha = 0;
 		blueCamera1.angle = -24;
 		FlxG.cameras.add(blueCamera1, false);
@@ -239,7 +239,7 @@ class TitleState extends MusicBeatState
 		scrollBlue1.camera = blueCamera1;
 		add(scrollBlue1);
 
-		var blueCamera2 = new FlxCamera(FlxG.width * 0.85, 0, Std.int(FlxG.width * 0.3), Std.int(FlxG.height * 1.25));
+		var blueCamera2 = new FlxCamera(Std.int(FlxG.width * 0.85), 0, Std.int(FlxG.width * 0.3), Std.int(FlxG.height * 1.25));
 		blueCamera2.bgColor.alpha = 0;
 		blueCamera2.angle = 24;
 		FlxG.cameras.add(blueCamera2, false);
@@ -539,9 +539,12 @@ class TitleState extends MusicBeatState
 
 	override function destroy()
 	{
-		FlxG.game.removeChild(mask);
-		FlxG.game.mask = null;
-		mask = null;
+		if (mask != null)
+		{
+			FlxG.game.mask = null;
+			FlxG.game.removeChild(mask);
+			mask = null;
+		}
 
 		super.destroy();
 	}
@@ -744,6 +747,9 @@ class TitleState extends MusicBeatState
 
 	function updateMask()
 	{
+		if (mask == null)
+			return;
+		
 		mask.graphics.clear();
 		mask.graphics.beginFill(FlxColor.BLACK);
 		mask.graphics.drawRect(0, 0, FlxG.width * FlxG.scaleMode.scale.x, FlxG.height * FlxG.scaleMode.scale.y);

@@ -324,7 +324,7 @@ class PlayState extends MusicBeatState
 			SONG = Song.loadFromJson('tutorial');
 
 		songName = Paths.formatToSongPath(SONG.song);
-		hasDesktop = true;
+		hasDesktop = (SONG.hasDesktop == true);
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = initPsychCamera();
@@ -2387,6 +2387,30 @@ class PlayState extends MusicBeatState
 			case 'Enable Transparent Window':
 				if (hasDesktop)
 					enableTransparentWindow();
+
+			case 'Technique Start':
+				dad.playAnim('techniqueStart', true);
+				dad.specialAnim = true;
+				dad.animation.finishCallback = function(name) {
+					dad.playAnim('techniqueLoop', true);
+					dad.specialAnim = true;
+					dad.animation.finishCallback = null;
+				}
+
+			case 'Technique Launch':
+				dad.playAnim('techniqueLaunch', true);
+				dad.specialAnim = true;
+				dad.animation.callback = function(name, frame, index) {
+					if (frame >= 11 || name != 'techniqueLaunch')
+					{
+						var newHealth = healthBar.bounds.max * 0.01; // 1% HP
+						if (health < newHealth)
+							health = 0; // L bozo
+						else
+							health = newHealth;
+						dad.animation.callback = null;
+					}
+				}
 		}
 
 		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2, flValue1, flValue2, strumTime));

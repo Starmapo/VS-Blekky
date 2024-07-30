@@ -1458,6 +1458,9 @@ class PlayState extends MusicBeatState
 				swagNote.noteType = songNotes[3];
 				if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
 
+				if (swagNote.desktopNote)
+					swagNote.texture = "arrowskins/RGBPlantDesktopArrows";
+
 				// swagNote.scrollFactor.set();
 
 				unspawnNotes.push(swagNote);
@@ -1497,6 +1500,9 @@ class PlayState extends MusicBeatState
 							oldNote.scale.y /= playbackRate;
 							oldNote.updateHitbox();
 						}
+
+						if (sustainNote.desktopNote)
+							sustainNote.texture = "arrowskins/RGBPlantDesktopArrows";
 
 						if (sustainNote.mustPress) sustainNote.x += FlxG.width / 2; // general offset
 						else if(ClientPrefs.data.middleScroll)
@@ -1628,7 +1634,10 @@ class PlayState extends MusicBeatState
 				babyArrow.alpha = targetAlpha;
 
 			if (isDesktop)
+			{
+				babyArrow.texture = "arrowskins/RGBPlantDesktopArrows";
 				desktopStrums.add(babyArrow);
+			}
 			else if (player == 1)
 				playerStrums.add(babyArrow);
 			else
@@ -3830,10 +3839,9 @@ class PlayState extends MusicBeatState
 		var newCamY = (FlxG.height - (FlxG.height * newScale)) / 2;
 		var newProperties = {width: FlxG.width * newScale, height: FlxG.height * newScale, x: newCamX, y: newCamY, zoom: newScale};
 		tweeningCam = true;
-		FlxG.camera.followLerp = 0;
+		FlxG.camera.followLerp = 1;
 		FlxTween.tween(FlxG.camera, newProperties, 1, {ease: FlxEase.quadInOut, onUpdate: function(twn) {
 			FlxG.camera.follow(camFollow, LOCKON, FlxG.camera.followLerp);
-			FlxG.camera.updateFollow();
 		}, onComplete: function(twn) {
 			tweeningCam = false;
 		}});

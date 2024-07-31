@@ -1,0 +1,66 @@
+{
+	"song": {
+		"events": [
+			[
+				49600,
+				[
+					[
+						"Technique Start",
+						"",
+						""
+					]
+				]
+			],
+			[
+				52000,
+				[
+					[
+						"Technique Launch",
+						"",
+						""
+					]
+				]
+			],
+			[
+				126400,
+				[
+					[
+						"Technique Start",
+						"",
+						""
+					]
+				]
+			],
+			[
+				128800,
+				[
+					[
+						"Technique Launch",
+						"",
+						""
+					]
+				]
+			],
+			[
+				139200,
+				[
+					[
+						"Technique Start",
+						"",
+						""
+					]
+				]
+			],
+			[
+				141300,
+				[
+					[
+						"Technique Launch",
+						"",
+						""
+					]
+				]
+			]
+		]
+	}
+}

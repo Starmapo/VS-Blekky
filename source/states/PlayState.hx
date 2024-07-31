@@ -2052,12 +2052,13 @@ class PlayState extends MusicBeatState
 					note.playAnim('static');
 					note.resetAnim = 0;
 				}
-			for (note in desktopStrums)
-				if(note.animation.curAnim != null && note.animation.curAnim.name != 'static')
-				{
-					note.playAnim('static');
-					note.resetAnim = 0;
-				}
+			if (hasDesktop)
+				for (note in desktopStrums)
+					if(note.animation.curAnim != null && note.animation.curAnim.name != 'static')
+					{
+						note.playAnim('static');
+						note.resetAnim = 0;
+					}
 		}
 		openSubState(new PauseSubState());
 

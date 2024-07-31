@@ -22,6 +22,10 @@ function onCreate()
 	addLuaSprite("overlay")
 end
 
+function onCreatePost()
+	setProperty("jufan.alpha", 0.00001)
+end
+
 function onUpdatePost(elapsed)
 	if getProperty("aura.animation.name") == "appear" and getProperty("aura.animation.finished") then
 		playAnim("aura", "idle", true)
@@ -32,6 +36,9 @@ function onEvent(name, v1, v2, t)
 	if name == "Aura Appear" then
 		playAnim("aura", "appear", true)
 		setProperty("aura.alpha", 1)
+		setProperty("jufan.alpha", 1)
+		playAnim("jufan", "appear", true)
+		setProperty("jufan.specialAnim", true)
 	end
 end
 

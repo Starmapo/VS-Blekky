@@ -36,7 +36,7 @@
 		{
 			"loop": false,
 			"offsets": [
-				16,
+				55,
 				20
 			],
 			"anim": "appear",
@@ -62,10 +62,10 @@
 				10,
 				20
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singLEFT",
-			"loop": false,
+			"indices": [],
 			"name": "Left"
 		},
 		{
@@ -73,10 +73,10 @@
 				23,
 				20
 			],
-			"indices": [],
+			"loop": false,
 			"fps": 24,
 			"anim": "singRIGHT",
-			"loop": false,
+			"indices": [],
 			"name": "Right"
 		}
 	],
@@ -84,8 +84,8 @@
 	"no_antialiasing": false,
 	"image": "characters/JUFAN-JAM",
 	"position": [
-		10,
-		240
+		-100,
+		170
 	],
 	"healthicon": "",
 	"flip_x": false,

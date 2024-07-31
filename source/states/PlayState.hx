@@ -1,5 +1,6 @@
 package states;
 
+import backend.PsychCamera;
 import lime.app.Application;
 import backend.FlxTransWindow;
 import backend.Highscore;
@@ -276,7 +277,6 @@ class PlayState extends MusicBeatState
 	public var transparentWindow:Bool = false;
 	public var camDesktop:FlxCamera;
 	public var camScale:Float = 1;
-	public var tweeningCam:Bool = false;
 	public var desktopHealth(default, set):Float = 1;
 	public var desktopHealthBar:Bar;
 	public var iconDesktop:HealthIcon;
@@ -477,7 +477,7 @@ class PlayState extends MusicBeatState
 			startCharacterScripts(gf.curCharacter);
 		}
 
-		if (songName == "blekk")
+		if (curStage == "Blekky")
 		{
 			jufan = new Character(0, 0, "jufan");
 			startCharacterPos(jufan);
@@ -732,12 +732,17 @@ class PlayState extends MusicBeatState
 
 		if (hasDesktop)
 		{
-			FlxG.camera.bgColor = 0xFF010101;
-			FlxG.stage.color = 0xFF010101;
+			FlxG.camera.bgColor = 0xFF020101;
+			FlxG.stage.color = 0xFF020101;
 			
 			if (FlxG.stage.window.maximized)
 				FlxG.stage.window.maximized = false;
+
+			var wasFullscreen = FlxG.fullscreen;
+			if (wasFullscreen)
+				FlxG.fullscreen = false; // need to do this or else borderless doesnt change
 			FlxG.stage.window.borderless = true;
+			FlxG.fullscreen = wasFullscreen;
 
 			if (!FlxG.fullscreen)
 			{
@@ -746,6 +751,7 @@ class PlayState extends MusicBeatState
 				FlxG.stage.window.x = Std.int((bounds.width - FlxG.stage.window.width) / 2);
 				FlxG.stage.window.y = Std.int((bounds.height - FlxG.stage.window.height) / 2);
 			}
+
 		}
 	}
 
@@ -1407,8 +1413,11 @@ class PlayState extends MusicBeatState
 		notes = new FlxTypedGroup<Note>();
 		noteGroup.add(notes);
 
-		desktopNotes = new FlxTypedGroup<Note>();
-		desktopNoteGroup.add(desktopNotes);
+		if (hasDesktop)
+		{
+			desktopNotes = new FlxTypedGroup<Note>();
+			desktopNoteGroup.add(desktopNotes);
+		}
 
 		var noteData:Array<SwagSection>;
 
@@ -1433,6 +1442,9 @@ class PlayState extends MusicBeatState
 			for (songNotes in section.sectionNotes)
 			{
 				var daStrumTime:Float = songNotes[0];
+
+				if (!hasDesktop && songNotes[1] > 7) return;
+
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 				var gottaHitNote:Bool = section.mustHitSection;
 
@@ -1572,6 +1584,10 @@ class PlayState extends MusicBeatState
 
 			case 'Play Sound':
 				Paths.sound(event.value1); //Precache sound
+
+			case 'Blekky Turn':
+				addCharacterToList("blekky-front", 1);
+				addCharacterToList("bf-car-ignored", 0);
 		}
 		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
@@ -1759,20 +1775,18 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		if (!tweeningCam) {
-			if(!inCutscene && !paused && !freezeCamera) {
-				FlxG.camera.followLerp = 2.4 * cameraSpeed * playbackRate;
-				if(!startingSong && !endingSong && boyfriend.getAnimationName().startsWith('idle')) {
-					boyfriendIdleTime += elapsed;
-					if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
-						boyfriendIdled = true;
-					}
-				} else {
-					boyfriendIdleTime = 0;
+		if(!inCutscene && !paused && !freezeCamera) {
+			FlxG.camera.followLerp = 2.4 * cameraSpeed * playbackRate;
+			if(!startingSong && !endingSong && boyfriend.getAnimationName().startsWith('idle')) {
+				boyfriendIdleTime += elapsed;
+				if(boyfriendIdleTime >= 0.15) { // Kind of a mercy thing for making the achievement easier to get as it's apparently frustrating to some playerss
+					boyfriendIdled = true;
 				}
+			} else {
+				boyfriendIdleTime = 0;
 			}
-			else FlxG.camera.followLerp = 0;
 		}
+		else FlxG.camera.followLerp = 0;
 		callOnScripts('onUpdate', [elapsed]);
 
 		super.update(elapsed);
@@ -2384,6 +2398,23 @@ class PlayState extends MusicBeatState
 				if(flValue2 == null) flValue2 = 1;
 				FlxG.sound.play(Paths.sound(value1), flValue2);
 
+			case 'Blekky Turn':
+				triggerEvent('Change Character', 'dad', 'blekky-front', Conductor.songPosition);
+				dad.playAnim('turn', true);
+				dad.specialAnim = true;
+				dad.animation.callback = function(name, frame, index) {
+					if (frame >= 42 || name != 'turn')
+					{
+						dad.animation.callback = null;
+						triggerEvent('Aura Appear', '', '', Conductor.songPosition);
+
+						triggerEvent('Change Character', 'bf', 'bf-car-ignored', Conductor.songPosition);
+						triggerEvent('Alt Idle Animation', 'bf', '-alt', Conductor.songPosition);
+						boyfriend.playAnim('realized', true);
+						boyfriend.specialAnim = true;
+					}
+				}
+
 			case 'Enable Transparent Window':
 				if (hasDesktop)
 					enableTransparentWindow();
@@ -2392,9 +2423,9 @@ class PlayState extends MusicBeatState
 				dad.playAnim('techniqueStart', true);
 				dad.specialAnim = true;
 				dad.animation.finishCallback = function(name) {
+					dad.animation.finishCallback = null;
 					dad.playAnim('techniqueLoop', true);
 					dad.specialAnim = true;
-					dad.animation.finishCallback = null;
 				}
 
 			case 'Technique Launch':
@@ -2403,12 +2434,12 @@ class PlayState extends MusicBeatState
 				dad.animation.callback = function(name, frame, index) {
 					if (frame >= 11 || name != 'techniqueLaunch')
 					{
+						dad.animation.callback = null;
 						var newHealth = healthBar.bounds.max * 0.01; // 1% HP
 						if (health < newHealth)
 							health = 0; // L bozo
 						else
 							health = newHealth;
-						dad.animation.callback = null;
 					}
 				}
 		}
@@ -3382,7 +3413,8 @@ class PlayState extends MusicBeatState
 		if (generatedMusic)
 		{
 			notes.sort(FlxSort.byY, ClientPrefs.data.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
-			desktopNotes.sort(FlxSort.byY, !ClientPrefs.data.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
+			if (hasDesktop)
+				desktopNotes.sort(FlxSort.byY, !ClientPrefs.data.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
 		iconP1.scale.set(1.2, 1.2);
@@ -3862,12 +3894,13 @@ class PlayState extends MusicBeatState
 		var newCamX = (FlxG.width - (FlxG.width * newScale)) / 2;
 		var newCamY = (FlxG.height - (FlxG.height * newScale)) / 2;
 		var newProperties = {width: FlxG.width * newScale, height: FlxG.height * newScale, x: newCamX, y: newCamY, zoom: newScale};
-		tweeningCam = true;
-		FlxG.camera.followLerp = 1;
+		var psychCamera:PsychCamera = cast FlxG.camera;
+		psychCamera.noLerp = true;
 		FlxTween.tween(FlxG.camera, newProperties, 1, {ease: FlxEase.quadInOut, onUpdate: function(twn) {
 			FlxG.camera.follow(camFollow, LOCKON, FlxG.camera.followLerp);
+			FlxG.camera.updateFollow();
 		}, onComplete: function(twn) {
-			tweeningCam = false;
+			psychCamera.noLerp = false;
 		}});
 		FlxTween.tween(camHUD, newProperties, 1, {ease: FlxEase.quadInOut});
 		FlxTween.tween(camHUD.scroll, {x: (FlxG.width / 2) - (FlxG.width * newScale / 2), y: (FlxG.height / 2) - (FlxG.height * newScale / 2)}, 1, {ease: FlxEase.quadInOut});
@@ -3877,7 +3910,7 @@ class PlayState extends MusicBeatState
 		camDesktop.y = FlxG.height * (ClientPrefs.data.downScroll ? -1 : 1);
 		FlxTween.tween(camDesktop, {y: 0}, 1, {ease: FlxEase.backOut});
 
-		FlxTween.tween(Main.fpsVar, {x: newCamX + Main.fpsVar.x * newScale, y: newCamY + Main.fpsVar.y * newScale, scaleX: newScale, scaleY: newScale}, 1, {ease: FlxEase.quadInOut});
+		FlxTween.tween(Main.fpsVar, {x: newCamX * FlxG.scaleMode.scale.x + Main.fpsVar.x * newScale, y: newCamY * FlxG.scaleMode.scale.y + Main.fpsVar.y * newScale, scaleX: newScale * FlxG.scaleMode.scale.x, scaleY: newScale * FlxG.scaleMode.scale.y}, 1, {ease: FlxEase.quadInOut});
 
 		transparentWindow = true;
 	}
@@ -3889,14 +3922,32 @@ class PlayState extends MusicBeatState
 
 		if (transparentWindow)
 			FlxTransWindow.getWindowsbackward();
-
-		// FlxG.mouse.useSystemCursor = false;
+		
+		var wasFullscreen = FlxG.fullscreen;
+		if (wasFullscreen)
+			FlxG.fullscreen = false; // need to do this or else borderless doesnt change
+		
 		FlxG.stage.window.borderless = false;
+
+		FlxG.fullscreen = wasFullscreen;
 
 		Main.fpsVar.x = 10;
 		Main.fpsVar.y = 3;
 		Main.fpsVar.scaleY = Main.fpsVar.scaleX = 1;
 
 		transparentWindow = false;
+	}
+
+	override function onResize(width:Int, height:Int)
+	{
+		super.onResize(width, height);
+
+		if (transparentWindow)
+		{
+			Main.fpsVar.x = FlxG.camera.x * FlxG.scaleMode.scale.x + 10 * camScale;
+			Main.fpsVar.y = FlxG.camera.y * FlxG.scaleMode.scale.y + 3 * camScale;
+			Main.fpsVar.scaleX = camScale * FlxG.scaleMode.scale.x;
+			Main.fpsVar.scaleY = camScale * FlxG.scaleMode.scale.y;
+		}
 	}
 }

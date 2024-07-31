@@ -81,6 +81,7 @@ class ChartingState extends MusicBeatState
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
 		['Set Property', "Value 1: Variable name\nValue 2: New value"],
 		['Play Sound', "Value 1: Sound file name\nValue 2: Volume (Default: 1), ranges from 0 to 1"],
+		['Blekky Turn', "For Blekky, this changes into his front-facing sprites and plays his turning animation as well as making the aura appear on time. Also changes BF to his ignored version and plays the realization anim."],
 		['Enable Transparent Window', "Changes the window to be transparent, zooms out the game, and makes the desktop UI appear.\n\nObviously only works when desktop notes are enabled for the chart."],
 		['Technique Start', "For Minus Blekky, this will play her technique start animation and automatically transition into the loop."],
 		['Technique Launch', "For Minus Blekky, this will play her technique launch animation and set the player to 1% HP."]

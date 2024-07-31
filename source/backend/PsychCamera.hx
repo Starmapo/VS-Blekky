@@ -5,6 +5,8 @@ package backend;
 
 class PsychCamera extends FlxCamera
 {
+	public var noLerp:Bool = false;
+
 	override public function update(elapsed:Float):Void
 	{
 		// follow the target, if there is one
@@ -101,9 +103,16 @@ class PsychCamera extends FlxCamera
 			}
 		}
 
-		var mult:Float = 1 - Math.exp(-elapsed * followLerp);
-		scroll.x += (_scrollTarget.x - scroll.x) * mult;
-		scroll.y += (_scrollTarget.y - scroll.y) * mult;
+		if (noLerp)
+		{
+			scroll.copyFrom(_scrollTarget); // no easing
+		}
+		else
+		{
+			var mult:Float = 1 - Math.exp(-elapsed * followLerp);
+			scroll.x += (_scrollTarget.x - scroll.x) * mult;
+			scroll.y += (_scrollTarget.y - scroll.y) * mult;
+		}
 		//trace('lerp on this frame: $mult');
 	}
 

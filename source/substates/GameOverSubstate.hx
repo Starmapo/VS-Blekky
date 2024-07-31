@@ -84,6 +84,8 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.BACK)
 		{
+			PlayState.instance.disableTransparentWindow();
+
 			#if DISCORD_ALLOWED DiscordClient.resetClientID(); #end
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;
@@ -162,6 +164,7 @@ class GameOverSubstate extends MusicBeatSubstate
 			{
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function()
 				{
+					PlayState.instance.disableTransparentWindow();
 					MusicBeatState.resetState();
 				});
 			});

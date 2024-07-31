@@ -732,7 +732,6 @@ class PlayState extends MusicBeatState
 
 		if (hasDesktop)
 		{
-			FlxG.camera.bgColor = 0xFF020101;
 			FlxG.stage.color = 0xFF020101;
 			
 			if (FlxG.stage.window.maximized)
@@ -2105,8 +2104,6 @@ class PlayState extends MusicBeatState
 		{
 			var ret:Dynamic = callOnScripts('onGameOver', null, true);
 			if(ret != LuaUtils.Function_Stop) {
-				disableTransparentWindow();
-
 				FlxG.animationTimeScale = 1;
 				boyfriend.stunned = true;
 				deathCounter++;
@@ -3918,7 +3915,6 @@ class PlayState extends MusicBeatState
 
 	public function disableTransparentWindow()
 	{
-		FlxG.camera.bgColor = FlxColor.BLACK;
 		FlxG.stage.color = FlxColor.BLACK;
 
 		if (transparentWindow)

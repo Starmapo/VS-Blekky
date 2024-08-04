@@ -1,13 +1,14 @@
 {
 	"animations": [
 		{
+			"loop": false,
 			"offsets": [
 				59,
 				-7
 			],
-			"loop": false,
-			"fps": 24,
 			"anim": "danceLeft",
+			"fps": 24,
+			"name": "WindySpeakerIdleFlip",
 			"indices": [
 				0,
 				1,
@@ -23,108 +24,31 @@
 				11,
 				12,
 				13
-			],
-			"name": "WindySpeakerIdle"
+			]
 		},
 		{
-			"offsets": [
-				32,
-				-6
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "cheer",
-			"indices": [],
-			"name": "WindySpeakerHey"
-		},
-		{
-			"offsets": [
-				56,
-				-12
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singLEFT",
-			"indices": [],
-			"name": "WindySpeakerLeft"
-		},
-		{
-			"offsets": [
-				24,
-				-8
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singUP",
-			"indices": [],
-			"name": "WindySpeakerUp"
-		},
-		{
-			"offsets": [
-				10,
-				-12
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "singRIGHT",
-			"indices": [],
-			"name": "WindySpeakerRight"
-		},
-		{
-			"offsets": [
-				49,
-				-18
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "sad",
-			"indices": [
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				6,
-				7,
-				8,
-				9,
-				10,
-				11,
-				12
-			],
-			"name": "WindySpeakerMiss"
-		},
-		{
-			"offsets": [
-				17,
-				-9
-			],
 			"loop": true,
-			"fps": 24,
-			"anim": "scared",
-			"indices": [],
-			"name": "WindySpeakerScared"
-		},
-		{
 			"offsets": [
 				59,
 				-7
 			],
+			"anim": "danceLeft-loop",
+			"fps": 24,
+			"name": "WindySpeakerIdleFlip",
 			"indices": [
 				26,
 				27
-			],
-			"fps": 24,
-			"anim": "danceLeft-loop",
-			"loop": true,
-			"name": "WindySpeakerIdle"
+			]
 		},
 		{
+			"loop": false,
 			"offsets": [
 				59,
 				-7
 			],
+			"anim": "danceRight",
+			"fps": 24,
+			"name": "WindySpeakerIdleFlip",
 			"indices": [
 				14,
 				15,
@@ -140,124 +64,90 @@
 				25,
 				26,
 				27
-			],
-			"fps": 24,
-			"anim": "danceRight",
-			"loop": false,
-			"name": "WindySpeakerIdle"
+			]
 		},
 		{
+			"loop": true,
 			"offsets": [
 				59,
 				-7
 			],
+			"anim": "danceRight-loop",
+			"fps": 24,
+			"name": "WindySpeakerIdleFlip",
 			"indices": [
 				26,
 				27
-			],
-			"fps": 24,
-			"anim": "danceRight-loop",
-			"loop": true,
-			"name": "WindySpeakerIdle"
+			]
 		},
 		{
-			"offsets": [
-				32,
-				-6
-			],
-			"indices": [
-				16,
-				17
-			],
-			"fps": 24,
-			"anim": "cheer-loop",
-			"loop": true,
-			"name": "WindySpeakerHey"
-		},
-		{
-			"offsets": [
-				56,
-				-12
-			],
-			"indices": [
-				16,
-				17
-			],
-			"fps": 24,
-			"anim": "singLEFT-loop",
-			"loop": true,
-			"name": "WindySpeakerLeft"
-		},
-		{
-			"offsets": [
-				48,
-				-15
-			],
-			"indices": [
-				16,
-				17
-			],
-			"fps": 24,
-			"anim": "singDOWN-loop",
-			"loop": true,
-			"name": "WindySpeakerDown"
-		},
-		{
-			"offsets": [
-				48,
-				-15
-			],
-			"indices": [],
-			"fps": 24,
-			"anim": "singDOWN",
 			"loop": false,
-			"name": "WindySpeakerDown"
-		},
-		{
 			"offsets": [
-				24,
-				-8
-			],
-			"indices": [
-				16,
-				17
-			],
-			"fps": 24,
-			"anim": "singUP-loop",
-			"loop": true,
-			"name": "WindySpeakerUp"
-		},
-		{
-			"offsets": [
-				10,
-				-12
-			],
-			"indices": [
-				16,
-				17
-			],
-			"fps": 24,
-			"anim": "singRIGHT-loop",
-			"loop": true,
-			"name": "WindySpeakerRight"
-		},
-		{
-			"offsets": [
-				49,
+				59,
 				-18
 			],
+			"anim": "sad",
+			"fps": 24,
+			"name": "WindySpeakerMissFlip",
+			"indices": [
+				0,
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12
+			]
+		},
+		{
+			"loop": true,
+			"offsets": [
+				59,
+				-18
+			],
+			"anim": "sad-loop",
+			"fps": 24,
+			"name": "WindySpeakerMissFlip",
 			"indices": [
 				13,
 				14
-			],
-			"fps": 24,
-			"anim": "sad-loop",
+			]
+		},
+		{
 			"loop": true,
-			"name": "WindySpeakerMiss"
+			"offsets": [
+				59,
+				-6
+			],
+			"anim": "cheer-loop",
+			"fps": 24,
+			"name": "WindySpeakerHeyFlip",
+			"indices": [
+				16,
+				17
+			]
+		},
+		{
+			"offsets": [
+				59,
+				-6
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "cheer",
+			"loop": false,
+			"name": "WindySpeakerHeyFlip"
 		}
 	],
+	"vocals_file": "",
 	"no_antialiasing": false,
-	"image": "characters/PPLUS_GF_SPEAKER_WINDYALT",
+	"image": "characters/PPLUS_GF_SPEAKER_WINDY",
 	"position": [
 		0,
 		0
@@ -269,11 +159,11 @@
 		0,
 		77
 	],
-	"arrowsName": null,
 	"camera_position": [
 		0,
 		0
 	],
 	"sing_duration": 4,
-	"scale": 1
+	"scale": 1,
+	"_editor_isPlayer": false
 }

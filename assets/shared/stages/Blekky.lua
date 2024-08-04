@@ -13,6 +13,7 @@ function onCreate()
 	addOffset("aura", "idle", 0, 0)
 	setProperty("aura.alpha", 0.00001)
 	addLuaSprite("aura")
+	setObjectOrder("aura", getObjectOrder("dadGroup") - 1)
 	
 	makeLuaSprite("overlay", "backgrounds/"..curStage.."/overlay")
 	setScrollFactor("overlay", 0, 0)

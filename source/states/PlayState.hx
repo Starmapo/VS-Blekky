@@ -1586,7 +1586,7 @@ class PlayState extends MusicBeatState
 
 			case 'Blekky Turn':
 				addCharacterToList("blekky-front", 1);
-				addCharacterToList("bf-car-ignored", 0);
+				addCharacterToList("gf-windy", 2);
 		}
 		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
@@ -2406,16 +2406,18 @@ class PlayState extends MusicBeatState
 						dad.animation.callback = null;
 						triggerEvent('Aura Appear', '', '', Conductor.songPosition);
 
-						triggerEvent('Change Character', 'bf', 'bf-car-ignored', Conductor.songPosition);
-						triggerEvent('Alt Idle Animation', 'bf', '-alt', Conductor.songPosition);
-						boyfriend.playAnim('realized', true);
-						boyfriend.specialAnim = true;
+						triggerEvent('Change Character', 'gf', 'gf-windy', Conductor.songPosition);
 					}
 				}
 
 			case 'Enable Transparent Window':
 				if (hasDesktop)
 					enableTransparentWindow();
+			
+			case 'BF Ignored':
+				triggerEvent('Alt Idle Animation', 'bf', '-alt', Conductor.songPosition);
+				boyfriend.playAnim('realized', true);
+				boyfriend.specialAnim = true;
 
 			case 'Technique Start':
 				dad.playAnim('techniqueStart', true);
@@ -3892,14 +3894,9 @@ class PlayState extends MusicBeatState
 		var newCamX = (FlxG.width - (FlxG.width * newScale)) / 2;
 		var newCamY = (FlxG.height - (FlxG.height * newScale)) / 2;
 		var newProperties = {width: FlxG.width * newScale, height: FlxG.height * newScale, x: newCamX, y: newCamY, zoom: newScale};
-		var psychCamera:PsychCamera = cast FlxG.camera;
-		psychCamera.noLerp = true;
-		FlxTween.tween(FlxG.camera, newProperties, 1, {ease: FlxEase.quadInOut, onUpdate: function(twn) {
-			FlxG.camera.follow(camFollow, LOCKON, FlxG.camera.followLerp);
-			FlxG.camera.updateFollow();
-		}, onComplete: function(twn) {
-			psychCamera.noLerp = false;
-		}});
+		FlxTween.tween(FlxG.camera, newProperties, 1, {ease: FlxEase.quadInOut});
+		// camera transition is still a little wonky but this is good enough (I literally don't know what else to do)
+		FlxG.camera.deadzone.setPosition((FlxG.width * newScale - FlxG.camera.target.width) / 2, (FlxG.height * newScale - FlxG.camera.target.height) / 2 - FlxG.camera.target.height * 0.25);
 		FlxTween.tween(camHUD, newProperties, 1, {ease: FlxEase.quadInOut});
 		FlxTween.tween(camHUD.scroll, {x: (FlxG.width / 2) - (FlxG.width * newScale / 2), y: (FlxG.height / 2) - (FlxG.height * newScale / 2)}, 1, {ease: FlxEase.quadInOut});
 		FlxTween.tween(this, {defaultCamZoom: newScale, defaultHUDZoom: newScale, camScale: newScale}, 1, {ease: FlxEase.quadInOut});

@@ -22,7 +22,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'blekk',
 		'nah',
-		'intrude',
+		// 'intrude',
 		'options'
 	];
 
@@ -94,7 +94,7 @@ class MainMenuState extends MusicBeatState
 
 		for (i in 0...optionShit.length)
 		{
-			var menuItem:FlxSprite = new FlxSprite(900, 20 + (i * 180));
+			var menuItem:FlxSprite = new FlxSprite(900, 45 + (i * 240));
 			menuItem.antialiasing = ClientPrefs.data.antialiasing;
 			menuItem.frames = Paths.getSparrowAtlas("mainmenu/items");
 			menuItem.animation.addByPrefix('idle', "item_" + optionShit[i], 0);
